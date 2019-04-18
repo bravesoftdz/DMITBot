@@ -65,7 +65,6 @@ var prefix = "dm~"
 client.login(`<token>`)
 
 client.on("ready", () => {
-	client.user.presence.game.type == 3
 	client.user.setGame("Starting Dmitryev Bot...")
 });
 
