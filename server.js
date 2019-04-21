@@ -3,8 +3,11 @@ const forEachTimeout = require('foreach-timeout');
 const client = new Discord.Client();
 const os = require('os');
 const strftime = require('strftime')
+const yt = require('ytdl-core')
+const fs = require('fs');
 
-var blockid = `id0` && `id1`
+
+var blockid = "id1" && "id2"
 
 
 	var blockmsg_embed = {
@@ -59,13 +62,11 @@ author: {
 		  client.channels.get("564022728143929370").send(t_log);})
 		
 	
-	
-var prefix = "dm~"
+	var prefix = "dm~"
 
-client.login(`<token>`)
+client.login(`<TOKEN>`)
 
 client.on("ready", () => {
-	
 	client.user.setGame("Starting Dmitryev Bot...")
 });
 
@@ -113,6 +114,11 @@ author: {
            name: "Время отправки",
            value: client.ping + " мсек"
        },
+       {
+           name: "Время работы",
+           value: strftime('%d:%H:%M:%S', new Date(client.uptime))
+       },
+
     {
         name: "Платформа",
         value: os.platform()
@@ -312,7 +318,11 @@ author: {
 client.on('ready', () => {
 
     var timerId = setInterval(function() {
-  client.user.setGame(client.guilds.size + " servers | dm~help")
+   client.user.setPresence({
+        game: {
+   name: client.guilds.size + " servers | dm~help",
+   type: "Watching",
+	url: "https://youtube.com/DMITPlus"}})
     }, 10000);
 			var timerId = setInterval(function() {
 console.log("\n██████       ███   ███     ██   ██████\n     ██     ██ ██ ██ ██           ██\n      ██    ██ ██ ██ ██    ██     ██\n      ██   ██   ███   ██   ██     ██\n     ██    ██         ██   ██     ██\n██████    ██           ██  ██     ██")
@@ -327,10 +337,14 @@ console.log("\nServers \(" + client.guilds.size + "\):")
 
 client.on('ready', () => {
   console.log(`Starting ${client.user.tag}...`);
-  var timerId = setInterval(function() {
-  client.user.setGame(client.users.size + " users | dm~help")
-}, 12000);
-});
+   var timerId = setInterval(function() {
+   client.user.setPresence({
+        game: {
+      name: client.users.size + " users | dm~help",
+      type: "Watching",
+      url: "https://youtube.com/DMITPlus"}})
+}, 12000)});
+
 
 client.on('ready', () => {
     // List servers the bot is connected to
@@ -411,6 +425,133 @@ author: {
   }}
 });
 
+client.on('message', message => {
+    if (message.content.startsWith(prefix + 'audio play ')) {
+				  		var t_log = {
+   embed: {
+color: 0xff8800,
+author: {
+     name: message.author.tag,
+     icon_url: client.user.avatarURL
+},
+    description: message.author.tag + " listening to music from " + message.content.split(" ").slice(1).join(" ") + " on **" + message.guild.name + "**",
+		   fields: [
+      {
+           name: "Server ID",
+           value: message.guild.id
+    },
+    {
+        name: "User ID",
+        value: message.author.id
+    },
+      ]
+   }
+};
+	var audload_embed = {
+        embed: {
+            color: 0x2200ff,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: "Подождите, пока загрузится ссылка..."
+		}
+					};
+					message.channel.send(audload_embed);
+						  client.channels.get("564022728143929370").send(t_log);
+    const voiceChannel = message.member.voiceChannel;
+    if (!voiceChannel) {
+      return message.channel.send(audload_embed);
+    }
+    voiceChannel.join()
+      .then(connnection => {
+        let stream = yt(message.content.split(" ").slice(1).join(" "), {
+          audioonly: true
+        });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => {
+          voiceChannel.leave();
+       });
+      });
+  }
+});
+
+client.on('message', message => {
+    if (message.content.startsWith(prefix + 'audio leave')) {
+						  		var t_log = {
+   embed: {
+color: 0xff8800,
+author: {
+     name: message.author.tag,
+     icon_url: client.user.avatarURL
+},
+    description: "Bot left the voice channel. Music playing is stopped.",
+		   fields: [
+      {
+           name: "Server ID",
+           value: message.guild.id
+    },
+    {
+        name: "User ID",
+        value: message.author.id
+    },
+      ]
+   }
+};
+	var audload_embed = {
+        embed: {
+            color: 0x2200ff,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: "Бот покинул голосовой канал."
+		}
+					};
+					message.channel.send(audload_embed);
+						  client.channels.get("564022728143929370").send(t_log);
+		          message.guild.voiceConnection.disconnect();
+}});
+
+client.on('message', message => {
+    if (message.content.startsWith(prefix + 'audio forward')) {
+						  		var t_log = {
+   embed: {
+color: 0xff8800,
+author: {
+     name: message.author.tag,
+     icon_url: client.user.avatarURL
+},
+    description: message.author.tag + ": Playing track with **" + message.content.split(" ").slice(1).join(" ") + "**",
+		   fields: [
+      {
+           name: "Server ID",
+           value: message.guild.id
+    },
+    {
+        name: "User ID",
+        value: message.author.id
+    },
+      ]
+   }
+};
+	var audload_embed = {
+        embed: {
+            color: 0x2200ff,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: "Идет воспроизведение трека с" + message.content.split(" ").slice(1).join(" ")
+		}
+					};
+					message.channel.send(audload_embed);
+						  client.channels.get("564022728143929370").send(t_log);
+		          yt.begin(message.content.split(" ").slice(1).join(" "))
+}});
 
 client.on('message', message => {
 		  	   	  if(message.channel.type === 'dm') return;
@@ -606,41 +747,33 @@ author: {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-  description: "Версия 2.1.0 (17.04.2019)",
+  description: "Версия 2.1.1 (26.04.2019)\nПрефикс: `dm~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
                     name: "Справка",
-                    value: "dm~about - о DmitBot\r\ndm~support - служба поддержки бота\r\ndm~servinfo - о сервере\r\ndm~donate - помочь проекту\r\ndm~links - ссылки на автора"
+                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\nservinfo - о сервере\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
                 },
                 {
                     name: "Опции",
-                    value: "dm~test - проверить состояние бота\r\ndm~ping - пинг"
+                    value: "test - проверить состояние бота\r\nping - пинг"
                 },
                 {
                     name: "Модератор",
-                    value: "dm~prune <от 2 до 999> - удалить сообщения\r\ndm~ban - забанить кого-то\r\ndm~kick - выгнать кого-то\r\ndm~myavatar - мой аватар\r\ndm~userinfo - о пользователе"
+                    value: "prune <от 2 до 999> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuserinfo - о пользователе"
                 },
                 {
                     name: "Развлечения",
-                    value: "\(!\) dm~news - Dmit News\r\ndm~memes - Интернет-мемы\r\ndm~8ball <вопрос> - игра \"Шар судьбы\"\ndm~emoji-ind - Индикатор эмоций\r\ndm~say - сказать что-нибудь от имени бота"
+                    value: "news - Dmit News\r\nmemes - Интернет-мемы\r\n8ball <вопрос> - игра \"Шар судьбы\"\nemoji-ind - Индикатор эмоций\r\nsay - сказать что-нибудь от имени бота"
              },
                 {
                     name: "Режим радуги",
-                    value: "dm~rb - включить\r\ndm~stop - отключить\r\ndm~help rainbow - что делать, если режим радуги не работает должным образом?"
+                    value: "rb - включить\r\nstop - отключить\r\nhelp rainbow - что делать, если режим радуги не работает должным образом?"
              }
             ]
         }
     };
 						  client.channels.get("564022728143929370").send(t_log);
 message.channel.send(help_embed);
-let str = "<@484921597015359488>"; //Just assuming some random tag. 
-
-//removing any sign of < @ ! >... 
-//the exclamation symbol comes if the user has a nickname on the server. 
-let id = str.replace(/[<@!>]/g, ''); 
-
-client.fetchUser(id) 
-    .then(user => {user.send("*Открывает справочник " + message.author.id + " \(" + message.author.tag + "\)*")}) 
 	}
    }});
  
@@ -655,7 +788,7 @@ client.fetchUser(id)
    });
   
 client.on('message', function(message) { 
-    if (message.content.startsWith("dm~prune")) { 
+    if (message.content.startsWith(prefix + "prune")) { 
     if(message.channel.type === 'dm') return;
 		  	  	var t_log = {
    embed: {
@@ -791,7 +924,7 @@ client.fetchUser(id)
 
   client.on('message', message => {
     if (!message.guild) return;
-    if (message.content.startsWith('dm~kick')) {
+    if (message.content.startsWith(prefix + 'kick')) {
 	  if(message.channel.type === 'dm') return;
 	    if(blockid === message.author.id) {
 
@@ -844,7 +977,7 @@ author: {
 
   client.on('message', message => {
 	  	  	   	  if(message.channel.type === 'dm') return;
-    if (message.content === 'dm~ping') {
+    if (message.content === prefix + 'ping') {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -1421,7 +1554,7 @@ author: {
 	  let date1 = new Date(message.createdTimestamp)
 	  let date2 = new Date(argsUser.createdTimestamp)
 	  let date3 = new Date(message.guild.member(argsUser).joinedTimestamp)
-	  if (Math.round(Math.abs((date1.getTime() - date3.getTime()) / day)) > 30 || Math.round(Math.abs((date1.getTime() - date2.getTime()) / day)) > 30) {
+	  if (Math.round(Math.abs((date1.getTime() - date3.getTime()) / day)) > 30 && Math.round(Math.abs((date1.getTime() - date2.getTime()) / day)) > 30) {
 		  let diff1 = Math.round(Math.abs((date1.getTime() - date2.getTime()) / day / month))
 		  		  let diff2 = Math.round(Math.abs((date1.getTime() - date3.getTime()) / day / month))
 		        var ui_info = {
