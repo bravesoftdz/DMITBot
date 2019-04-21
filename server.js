@@ -6,9 +6,7 @@ const strftime = require('strftime')
 const yt = require('ytdl-core')
 const fs = require('fs');
 
-
 var blockid = "id1" && "id2"
-
 
 	var blockmsg_embed = {
    embed: {
