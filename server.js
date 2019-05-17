@@ -68,7 +68,7 @@ author: {
 	
 	var prefix = "dm~"
 
-client.login(`<token>`)
+client.login(`token`)
 
 client.on("ready", () => {
 	client.user.setGame("Starting Dmitryev Bot...")
