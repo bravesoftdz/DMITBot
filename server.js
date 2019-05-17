@@ -6,7 +6,9 @@ const strftime = require('strftime')
 const yt = require('ytdl-core')
 const fs = require('fs');
 
-var blockid = "id1" && "id2"
+
+var blockid = "396331064710135809" && "461516811855200256"
+
 
 	var blockmsg_embed = {
    embed: {
@@ -22,9 +24,11 @@ author: {
    embed: {
 color: 0x55ff55,
 author: {
-     name: "Servers Log",
-	 icon_url: guild.iconURL
+     name: "Servers Log"
 },
+	 thumbnail: {
+		url: guild.iconURL,
+	 },
     description: "DMITBot has joined the **" + guild.name + "** server! Now it has **" + client.guilds.size + "** servers. \:clap\: \:clap\:\nThanks!",
 	   fields: [
       {
@@ -52,9 +56,11 @@ author: {
    embed: {
 color: 0xff0000,
 author: {
-     name: "Servers Log",
-	 icon_url: guild.iconURL
+     name: "Servers Log"
 },
+	 thumbnail: {
+		url: guild.iconURL,
+	 },
     description: "DMITBot left, kicked out, banned from **" + guild.name + "** server! Now it has **" + client.guilds.size + "** servers. \nCan you explain to the bot author what you didn't like? :worried:",
 	}}
 		  client.channels.get("564022728143929370").send(t_log);})
@@ -62,7 +68,7 @@ author: {
 	
 	var prefix = "dm~"
 
-client.login(`<TOKEN>`)
+client.login(`<token>`)
 
 client.on("ready", () => {
 	client.user.setGame("Starting Dmitryev Bot...")
@@ -136,12 +142,13 @@ client.channels.get("564022728143929370").send(t_log);
 message.channel.send(test_embed);
 }});
 
-client.on("message", message => {
-  if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + "help rainbow")) {
-	  	  	var t_log = {
+  client.on('message', message => {
+    if(message.author === client.user) return;
+		  	   	  if(message.channel.type === 'dm') return;
+    if(message.content.startsWith(prefix + 'about')) {
+			  	  	var t_log = {
    embed: {
-color: 0xff8800,
+color: 0x008800,
 author: {
      name: "Commands Log",
 },
@@ -161,177 +168,39 @@ author: {
     },
       ]
 		}}
-	  
-	    if(blockid === message.author.id) {
+		  if(blockid === message.author.id) {
 
 	  message.channel.send(blockmsg_embed)
   } else {
-	  			var rainbowhelp_embed = {
-        embed: {
-            color: 0xff0055,
-
-            author: {
-                name: "Что делать, если \"радужный\" режим не работает должным образом",
-                icon_url: client.user.avatarURL
-            },
-  description: "1. Перетащите роль `DmitBot \(β\)` на шаг выше роли `Multicolor` \(если у Вас \n роли Multicolor нет, создайте ее!\)\n2. Если хотите охватить всеми участниками радугой, перетащите эту же роль \nвместе с DmitBot'ом вверх после конечной цели, \nнапример, администратор или модератор.\n3.Если Вы оставите, как есть, роль Multicolor ниже остальных, то эффекта радуги не будет. Необходимо роли Multicolor и DmitBot расположить \nповерх определенных титулов.\n\nЕсли три из перечисленных условий не помогли, возможно, был вызван краш \nWebSocket, и для устранения - необходима перезагрузка бота.\n\nБлагодарим Вас за приглашенние бота и желаем Вам удачи!"
-		}
-					};
-client.channels.get("564022728143929370").send(t_log);
-message.channel.send(rainbowhelp_embed)
-}}});
-
-let rainbowOn = new Set();
-let rainbowRole = new Set();
-let blocked = new Set();
-
-let colors = ['#ff0000', '#ffa500', '#ffff00', '#00ff00', '#00BFFF', '#0000ff', '#ff00ff'];
-
-
-function send(id, msg) {return};
-
-function roleChanginging () {
-    forEachTimeout(colors, color => {
-        client.guilds.forEach(guild => {
-            if (rainbowOn.has(guild.id) && guild.roles.find(r => r.name === 'Multicolor')) {
-                const role = guild.roles.find(r => r.name === 'Multicolor')
-                if (role.editable && role) role.setColor(color); 
-            };
-        });
-    }, 1500).then(() => roleChanginging());
-};
-
-roleChanginging();
-
-
-roleChanginging();
-client.on('message', message => {
-    if (message.channel.type !== 'text' || message.author.bot || !message.content.startsWith(prefix) || !message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
-    if(message.channel.type === 'dm') return;
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-
-    function succ (text) {
-        const embed = new Discord.RichEmbed()
-        .setColor('55ff55')
-        .setTitle('Успех :white_check_mark:')
-        .setDescription(`**${text}**`)
-        return message.channel.send({embed});
-    }
-
-    function err (text, perms) {
-        const embed = new Discord.RichEmbed()
-        .setColor('ff5555')
-        .setTitle('Ошибка :exclamation:')
-        .setDescription(`Причина: **${text}**`)
-        if (perms) embed.setDescription(`**У вас нет права "${perms}"**`);
-        return message.channel.send({embed});
-    }
-
-    if (command === 'stop') {
-	    if(message.channel.type === 'dm') return;
-			if (blockid === message.author.id) return message.send('Автор бота отключил Вам все команды бота по причине: ' + reasonblock);
-
-        if (!message.member.hasPermission("MANAGE_ROLES")) return err(null, 'Управление ролями')
-
-        if (!rainbowOn.has(message.guild.id)) return err('Изменение роли и так не включено')
-
-        rainbowOn.delete(message.guild.id)
-        succ('Изменение роли успешно отключено')
-		
-        send('461516811855200256', `Пользователь ${message.author} (${message.author.tag}) **отключил** :negative_squared_cross_mark: изменение роли на ${message.guild.name} (${message.guild.id})`)
-    }
-    
-        if (['rainbow', 'rb'].includes(command)) {
-				var rb_log = {
+	  	  						  client.channels.get("564022728143929370").send(t_log);
+		var about_embed = {
    embed: {
-color: 0xff8800,
+color: 0x0088ff,
 author: {
-     name: "Commands Log",
+     name: "О боте DmitBot",
      icon_url: client.user.avatarURL
 },
-    description: message.author.tag + " launched a color change on " + message.guild.name,
-	   fields: [
+   fields: [
       {
-           name: "Server ID",
-           value: message.guild.id
+           name: "Версия",
+           value: "2.1.2 (17.05.2019)"
     },
        {
-           name: "Channel ID",
-           value: message.channel.id
+           name: "Автор/Разработчик",
+           value: "`XD (\dmitcomputers\)#7004`"
        },
     {
-        name: "User ID",
-        value: message.author.id
+        name: "Авторские права",
+        value: "Copyright © Dmit Computers, 2019. Все права защищены."
     },
       ]
-	}};
-			client.channels.get("564022728143929370").send(rb_log);
-				if (blockid === message.author.id) return message.send('Автор бота отключил Вам все команды бота по причине: ' + reasonblock);
-
-            const role = message.guild.roles.find("name", 'Multicolor')
-
-            if (!message.member.hasPermission("MANAGE_ROLES")) return err(null, 'Управление ролями')
-
-            if (!role) return err('На вашем сервере нет роли с названием \`Multicolor\`');
-
-            if (!role.editable) return err(`У меня недостаточно прав для изменения роли ${role}`)
-
-            if (rainbowOn.has(message.guild.id)) return err('Нельзя создавать более одной меняющейся роли на сервере');
-
-            rainbowOn.add(message.guild.id);
-
-            send('461516811855200256', `Пользователь ${message.author} (${message.author.tag}) **включил** :white_check_mark: изменение роли на ${message.guild.name} (${message.guild.id})`)
-
-            succ('\"Радужный\" режим включен.');
-        }
-
-    /*if (command === 'set-colors') {
-        if (!message.member.hasPermission("MANAGE_ROLES")) return message.reply('У вас недостаточно прав');
-        let allColors = [];
-        if (!args[1] || args[7]) return message.reply('Укажите от 2-ух до 7-ми цветов');
-            
-        for (let i = 0; i < args.length; i++) {
-            if (!args[i].match(hexreg)) return message.reply(`Аргумент **${i + 1}** не является hex цветом (\`#ff0000\`)`)
-            allColors.push(`${i + 1}) **${args[i]}**`)
-        } 
-        db.query(`SELECT * FROM guildData WHERE id = ${message.guild.id}`, (err, rows) => {
-            if (err) console.log(err);
-            if (!rows[0]) db.query(`INSERT INTO guildData (id, colors) VALUES ('${message.guild.id}', '${colors}')`, console.log)
-            db.query(`UPDATE guildData SET colors = '${args.join(' ')}' WHERE id = '${message.guild.id}'`);
-        })
-        message.reply(`Цвета меняющейся роли изменены на:\n${allColors.join('\n')}`);
+   }
+};
+message.channel.send(about_embed);
     }
-    if (command === 'reset-colors') {
-        if (!message.member.hasPermission("MANAGE_ROLES")) return message.reply('У вас недостаточно прав');
-        db.query(`SELECT * FROM guildData WHERE id = ${message.guild.id}`, (err, rows) => {
-            if (err) console.log(err);
-            if (!rows[0]) db.query(`INSERT INTO guildData (id, colors) VALUES ('${message.guild.id}', '${colors}')`, console.log)
-            db.query(`UPDATE guildData SET colors = '${colors}' WHERE id = '${message.guild.id}'`);
-        })
-        message.reply('Цвета меняющейся роли изменены на стандартные');
-    }*/
-});
+  }});
+  
 
-client.on('ready', () => {
-
-    var timerId = setInterval(function() {
-   client.user.setPresence({
-        game: {
-   name: client.guilds.size + " servers | dm~help",
-   type: "Watching",
-	url: "https://youtube.com/DMITPlus"}})
-    }, 10000);
-			var timerId = setInterval(function() {
-console.log("\n██████       ███   ███     ██   ██████\n     ██     ██ ██ ██ ██           ██\n      ██    ██ ██ ██ ██    ██     ██\n      ██   ██   ███   ██   ██     ██\n     ██    ██         ██   ██     ██\n██████    ██           ██  ██     ██")
-console.log("\nServers \(" + client.guilds.size + "\):")
-  client.guilds.forEach((guild) => {
-        console.log(" = " + guild.name + "\n   ID: " + guild.id + " | Users: " + guild.memberCount + " | Online: " + guild.presences.size)
-  })
-  console.log("\nUsers: " + client.users.size + "\nCommand complete.")
-			clearInterval(timerId);
-}, 2000);
-});
 
 client.on('ready', () => {
   console.log(`Starting ${client.user.tag}...`);
@@ -409,19 +278,20 @@ author: {
    }
 };
 	  client.channels.get("564022728143929370").send(ban_log);
-          message.channel.sendMessage(`**Сообщение**\n${user.tag} забанен из Вашего сервера.`);
+          message.channel.sendMessage(`${user.tag} забанен из Вашего сервера.`);
         }).catch(err => {
-          message.channel.sendMessage('**Ошибка**\nНевозможно выполнить действия, поскольку бот/Вы не имеете права администратора.');
+          message.channel.sendMessage('Невозможно выполнить действия, поскольку бот/Вы не имеете права администратора.');
           console.error(err);
         });
       } else {
-        message.channel.sendMessage('**Ошибка**\nНевозможно выполнить действие, поскольку в Вашем сервере нет этого участника, либо этот участник покинул Ваш сервер');
+        message.channel.sendMessage('Невозможно выполнить действие, поскольку в Вашем сервере нет этого участника, либо этот участник покинул Ваш сервер');
       }
     } else {
-      message.channel.sendMessage('**Правильное использование команды**\nДля того, чтобы забанить человека, напишите dm~ban @имя#тег');
+      message.channel.sendMessage('Для того, чтобы забанить человека, напишите dm~ban @имя#тег');
     }
   }}
 });
+
 
 client.on('message', message => {
     if (message.content.startsWith(prefix + 'audio play ')) {
@@ -445,28 +315,70 @@ author: {
       ]
    }
 };
-	var audload_embed = {
+	var auderr1_embed = {
         embed: {
-            color: 0x2200ff,
+            color: 0xff0000,
 
             author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-  description: "Подождите, пока загрузится ссылка..."
-		}
-					};
-					message.channel.send(audload_embed);
+  description: ":no_entry_sign: " + message.author + ", прежде чем прослушать трек, обязательно войдите в любой голосовой канал!"
+					}
+	}
+		var auderr2_embed = {
+        embed: {
+            color: 0xff0000,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: ":no_entry_sign: Ошибка открытия ссылки " + message.content.split(" play ").slice(1).join(" ") + ". \nПроверьте адрес ссылки и повторите попытку позднее.\nЕсли до сих пор не удается получить доступ к ссылке, введите другой адрес."
+					}
+	}
+		var audload_embed = {
+        embed: {
+            color: 0x4400ff,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: ":hourglass_flowing_sand: Загрузка..."
+					}
+	}
 						  client.channels.get("564022728143929370").send(t_log);
     const voiceChannel = message.member.voiceChannel;
     if (!voiceChannel) {
-      return message.channel.send(audload_embed);
+      return message.channel.send(auderr1_embed);
+    }
+	    const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
+    if (!valid) {
+      return message.channel.send(auderr2_embed);
     }
     voiceChannel.join()
       .then(connnection => {
-        let stream = yt(message.content.split(" ").slice(1).join(" "), {
-          audioonly: true
-        });
+		  		      message.channel.send(audload_embed);
+	  let stream = yt(message.content.split(" play ").slice(1).join(" "), {
+      format: "mp3", 
+	  audioonly: true
+        })
+				yt.getInfo(message.content.split(" ").slice(1).join(" "), function(err, info) {
+						var audplay_embed = {
+        embed: {
+            color: 0xff0000,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: message.author + ": проигрывается **" + info.title + "**"
+  
+					}
+	}
+message.channel.send(audplay_embed);
+});
         const dispatcher = connnection.playStream(stream);
         dispatcher.on('end', () => {
           voiceChannel.leave();
@@ -474,6 +386,7 @@ author: {
       });
   }
 });
+
 
 client.on('message', message => {
     if (message.content.startsWith(prefix + 'audio leave')) {
@@ -496,33 +409,31 @@ author: {
     },
       ]
    }
-};
-	var audload_embed = {
-        embed: {
-            color: 0x2200ff,
-
-            author: {
-                name: "Аудиоплеер",
-                icon_url: client.user.avatarURL
-            },
-  description: "Бот покинул голосовой канал."
-		}
-					};
-					message.channel.send(audload_embed);
-						  client.channels.get("564022728143929370").send(t_log);
-		          message.guild.voiceConnection.disconnect();
-}});
-
-client.on('message', message => {
-    if (message.content.startsWith(prefix + 'audio forward')) {
-						  		var t_log = {
+	};
+						  		var audleave_embed = {
    embed: {
 color: 0xff8800,
 author: {
      name: message.author.tag,
      icon_url: client.user.avatarURL
 },
-    description: message.author.tag + ": Playing track with **" + message.content.split(" ").slice(1).join(" ") + "**",
+    description: "Прослушивание трека остановлено, т. к. бот вышел из голосвого канала."
+								}}
+					message.channel.send(audleave_embed);
+						  client.channels.get("564022728143929370").send(t_log);
+		          message.guild.voiceConnection.disconnect();
+}});
+
+client.on('message', message => {
+    if (message.content.startsWith(prefix + 'audio pause')) {
+	var t_log = {
+   embed: {
+color: 0xff8800,
+author: {
+     name: message.author.tag,
+     icon_url: client.user.avatarURL
+},
+    description: "Music playing is paused.",
 		   fields: [
       {
            name: "Server ID",
@@ -543,13 +454,13 @@ author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-  description: "Идет воспроизведение трека с" + message.content.split(" ").slice(1).join(" ")
+  description: "Воспроизведение трека приостановлено."
 		}
 					};
+					
 					message.channel.send(audload_embed);
-						  client.channels.get("564022728143929370").send(t_log);
-		          yt.begin(message.content.split(" ").slice(1).join(" "))
 }});
+
 
 client.on('message', message => {
 		  	   	  if(message.channel.type === 'dm') return;
@@ -745,7 +656,7 @@ author: {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-  description: "Версия 2.1.1 (26.04.2019)\nПрефикс: `dm~`. Для выполнения пишите `<префикс><имя команды>`",
+  description: "Версия 2.1.2 (17.05.2019)\nПрефикс: `dm~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
                     name: "Справка",
@@ -762,10 +673,10 @@ author: {
                 {
                     name: "Развлечения",
                     value: "news - Dmit News\r\nmemes - Интернет-мемы\r\n8ball <вопрос> - игра \"Шар судьбы\"\nemoji-ind - Индикатор эмоций\r\nsay - сказать что-нибудь от имени бота"
-             },
+                },
                 {
-                    name: "Режим радуги",
-                    value: "rb - включить\r\nstop - отключить\r\nhelp rainbow - что делать, если режим радуги не работает должным образом?"
+                    name: "Аудиоплеер",
+                    value: "audio play <ссылка> - воспроизведение трека\r\naudio leave - остановка трека и выход из г. канала"
              }
             ]
         }
@@ -905,7 +816,9 @@ author: {
                 name: "Аватар пользователя " + message.author.tag,
                 icon_url: client.user.avatarURL
             },
-  description: message.author.avatarURL
+  image: {
+	       url: message.author.avatarURL
+         },
 		}
 					};
     message.channel.send(myavatar_embed);
@@ -1028,64 +941,6 @@ author: {
   .then(console.log)
   .catch(console.error);
   });
-
-  client.on('message', message => {
-    if(message.author === client.user) return;
-		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + 'about')) {
-			  	  	var t_log = {
-   embed: {
-color: 0x008800,
-author: {
-     name: "Commands Log",
-},
-    description: message.author.tag + " typing `" + message.content + "` on " + message.guild.name + "/" + message.channel.name,
-	   fields: [
-      {
-           name: "Server ID",
-           value: message.guild.id
-    },
-       {
-           name: "Channel ID",
-           value: message.channel.id
-       },
-    {
-        name: "User ID",
-        value: message.author.id
-    },
-      ]
-		}}
-		  if(blockid === message.author.id) {
-
-	  message.channel.send(blockmsg_embed)
-  } else {
-	  	  						  client.channels.get("564022728143929370").send(t_log);
-		var about_embed = {
-   embed: {
-color: 0x0088ff,
-author: {
-     name: "О боте DmitBot",
-     icon_url: client.user.avatarURL
-},
-   fields: [
-      {
-           name: "Версия",
-           value: "2.1.0 (17.04.2019)"
-    },
-       {
-           name: "Автор/Разработчик",
-           value: "`\[dmit.discord.gg\]#7004`"
-       },
-    {
-        name: "Авторские права",
-        value: "Copyright © Dmit Computers, 2019. Все права защищены."
-    },
-      ]
-   }
-};
-message.channel.send(about_embed);
-    }
-  }});
   
 // set message listener 
 client.on('message', message => {
@@ -1226,8 +1081,8 @@ author: {
 },
    fields: [
       {
-		   name: "С 27 марта 2018 г. открылся блог-сайт канала DMIT+",
-           value: "Подробнее - пишите `dm~news 001`"
+		   name: "Пока новостей нет.",
+           value: "Вы можете либо прогуляться по нашим командам, либо зайти на наш Twitter: https://twitter.com/dmitplus, чтобы быть в курсе!"
       },
       ]
    }
@@ -1277,8 +1132,8 @@ author: {
 },
    fields: [
       {
-           name: "С 27 марта 2018 г. открылся сайт-блог канала DMIT+",
-           value: "Со дня открытия сайт-блога я отправил первый пост: \"Интернет в MS-DOS 6.22 может работает даже на древнем компе, есть одно \"но\".\n1. Требуется пакетный драйвер для MS-DOS\n2. Стек MTCP\n3. Конфиг-файл + команда `set MTCPCFG=\[имя\].cfg`\nВсе это можно погуглить.\nP. S. Обязательно выберите адрес обращ. к прогам, например `0x60`.\nЕсли что, заходите: http://dmitplus.blogspot.com/"
+           name: "Пока новостей нет",
+           value: "Вы можете либо прогуляться по нашим командам, либо зайти на наш Twitter: https://twitter.com/dmitplus, чтобы быть в курсе!"
 
     },
       ]
@@ -1460,14 +1315,13 @@ author: {
               name: "О сервере \"" + message.guild.name + "\"",
               icon_url: client.user.avatarURL
                    },
+			  thumbnail: {
+	        	url: message.guild.iconURL,
+	          },
           fields: [
 		    {
                  name: "ID",
                  value: message.guild.id
-            },
-            {
-                 name: "Дата создания",
-                 value: strftime('%d.%m.%Y', new Date(message.guild.createdTimestamp))
             },
             {
                  name: "Владелец",
@@ -1485,7 +1339,10 @@ author: {
                  name: "Степень модерации",
                  value: verifLvl[message.guild.verificationLevel]
        },
-           ]
+           ],
+		   	   	footer: {
+                          text: "Сервер создан " + strftime('%d.%m.%Y', new Date(message.guild.createdTimestamp)),
+				},
        }
    };
 message.channel.send(si_info);
@@ -1560,8 +1417,11 @@ author: {
         color: 0x8800ff,
         author: {
               name: "О пользователе \"" + argsUser.username + "\"",
-              icon_url: argsUser.avatarURL
+              icon_url: client.user.avatarURL
                    },
+			  thumbnail: {
+	        	url: argsUser.avatarURL,
+	          },
           fields: [
 		    {
                  name: "ID",
@@ -1597,8 +1457,11 @@ author: {
         color: 0x8800ff,
         author: {
               name: "О пользователе \"" + argsUser.username + "\"",
-              icon_url: argsUser.avatarURL
+              icon_url: client.user.avatarURL
                    },
+			  thumbnail: {
+	        	url: argsUser.avatarURL,
+	          },
           fields: [
 		    {
                  name: "ID",
