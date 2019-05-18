@@ -5,8 +5,12 @@ const os = require('os');
 const strftime = require('strftime')
 const yt = require('ytdl-core')
 const fs = require('fs');
+const botconfig = require('./JSON/botconfig.json');
 
-
+var prefix = botconfig.prefix
+var prefix2 = botconfig.prefix_a
+var prefix3 = botconfig.prefix_b
+var prefix4 = botconfig.prefix_c
 var blockid = "396331064710135809" && "461516811855200256"
 
 
@@ -65,10 +69,8 @@ author: {
 	}}
 		  client.channels.get("564022728143929370").send(t_log);})
 		
-	
-	var prefix = "dm~"
 
-client.login(`token`)
+client.login(botconfig.token)
 
 client.on("ready", () => {
 	client.user.setGame("Starting Dmitryev Bot...")
@@ -77,7 +79,7 @@ client.on("ready", () => {
 
 client.on("message", message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + "test")) {
+  if(message.content.startsWith(prefix4 + "test" || prefix3 + "test" || prefix2 + "test" || prefix + "test")) {
 	  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -239,7 +241,7 @@ client.on('message', message => {
 
 client.on('message', message => {
   if (!message.guild) return;
-  if (message.content.startsWith(prefix + 'ban')) {
+  if (message.content.startsWith(prefix4 + "ban" || prefix3 + "ban" || prefix2 + "ban" || prefix + 'ban')) {
 	  	   	  if(message.channel.type === 'dm') return;
 			  
 		    if(blockid === message.author.id) {
@@ -294,7 +296,7 @@ author: {
 
 
 client.on('message', message => {
-    if (message.content.startsWith(prefix + 'audio play ')) {
+    if (message.content.startsWith(prefix4 + "audio play " || prefix3 + "audio play " || prefix2 + "audio play " || prefix + 'audio play ')) {
 				  		var t_log = {
    embed: {
 color: 0xff8800,
@@ -389,7 +391,7 @@ message.channel.send(audplay_embed);
 
 
 client.on('message', message => {
-    if (message.content.startsWith(prefix + 'audio leave')) {
+    if (message.content.startsWith(prefix4 + "audio leave" || prefix3 + "audio leave" || prefix2 + "audio leave" || prefix + 'audio leave')) {
 						  		var t_log = {
    embed: {
 color: 0xff8800,
@@ -464,7 +466,7 @@ author: {
 
 client.on('message', message => {
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content === prefix + "support") {
+    if(message.content === prefix4 + "support" || prefix3 + "support" || prefix2 + "support" || prefix + "support") {
 			  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -510,7 +512,7 @@ author: {
    client.on("message", message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "support bug")) {
+    if(message.content.startsWith(prefix4 + "support bug" || prefix3 + "support bug" || prefix2 + "support bug" || prefix + "support bug")) {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -564,7 +566,7 @@ client.fetchUser(id)
       client.on("message", message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "support note")) {
+    if(message.content.startsWith(prefix4 + "support note" || prefix3 + "support note" || prefix2 + "support note" || prefix + "support note")) {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -621,7 +623,7 @@ client.fetchUser(id)
    client.on("message", message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content === prefix + "help") {
+    if(message.content === prefix4 + "help" || prefix3 + "help" || prefix2 + "help" || prefix + "help") {
 			  	  	var t_log = {
    embed: {
 color: 0x007700,
@@ -697,7 +699,7 @@ message.channel.send(help_embed);
    });
   
 client.on('message', function(message) { 
-    if (message.content.startsWith(prefix + "prune")) { 
+    if (message.content.startsWith(prefix4 + "prune" || prefix3 + "prune" || prefix2 + "prune" || prefix + "prune")) { 
     if(message.channel.type === 'dm') return;
 		  	  	var t_log = {
    embed: {
@@ -779,7 +781,7 @@ author: {
 
 client.on('message', message => {
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "myavatar")) {
+    if(message.content.startsWith(prefix4 + "myavatar" || prefix3 + "myavatar" || prefix2 + "myavatar" || prefix + "myavatar")) {
 			  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -835,7 +837,7 @@ client.fetchUser(id)
 
   client.on('message', message => {
     if (!message.guild) return;
-    if (message.content.startsWith(prefix + 'kick')) {
+    if (message.content.startsWith(prefix4 + "kick" || prefix3 + "kick" || prefix2 + "kick" || prefix + 'kick')) {
 	  if(message.channel.type === 'dm') return;
 	    if(blockid === message.author.id) {
 
@@ -888,7 +890,7 @@ author: {
 
   client.on('message', message => {
 	  	  	   	  if(message.channel.type === 'dm') return;
-    if (message.content === prefix + 'ping') {
+    if (message.content === prefix4 + "ping" || prefix3 + "ping" || prefix2 + "ping" || prefix + 'ping') {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -949,7 +951,7 @@ client.on('message', message => {
     if(message.content.startsWith(prefix + 'reset')) {
      message.channel.send('Перезагрузка...')
      .then(msg => client.destroy())
-     .then(() => client.login('NTA3NTQwMzY4NDQzODM0Mzc0.D0Fgxw.7kPgrGBLmarQ0A36WsuXnxQugSQ'));
+     .then(() => client.login(botconfig.token));
     }
 });
 
@@ -962,7 +964,7 @@ function resetBot(channel) {
     client.on('message', message => {
     if(message.author === client.user) return;
 	if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + 'links')) {
+    if(message.content.startsWith(prefix4 + "links" || prefix3 + "links" || prefix2 + "links" || prefix + 'links')) {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -1044,7 +1046,7 @@ client.fetchUser(id)
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content === prefix + 'news') {
+  if(message.content === prefix4 + "news" || prefix3 + "news" || prefix2 + "news" || prefix + 'news') {
 	  	  	  	var t_log = {
    embed: {
 color: 0xaa88ff,
@@ -1095,7 +1097,7 @@ message.channel.send(news_embed);
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content === prefix + 'news 001') {
+  if(message.content === prefix4 + "news 001" || prefix3 + "news 001" || prefix2 + "news 001" || prefix + 'news 001') {
 	  	  	  	var t_log = {
    embed: {
 color: 0xaa88ff,
@@ -1172,7 +1174,7 @@ function clean(text) {
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + 'ads +')) {
+  if(message.content.startsWith(prefix4 + "ads +" || prefix3 + "ads +" || prefix2 + "ads +" || prefix + 'ads +')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0xffff00,
@@ -1218,7 +1220,7 @@ message.channel.send(ads_err_embed);
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + '8ball')) {
+  if(message.content.startsWith(prefix4 + "8ball" || prefix3 + "8ball" || prefix2 + "8ball" || prefix + '8ball')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x2200ff,
@@ -1277,7 +1279,7 @@ client.fetchUser(id)
 
 client.on('message', message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'servinfo')) {
+  if(message.content.startsWith(prefix4 + "servinfo" || prefix3 + "servinfo" || prefix2 + "servinfo" || prefix + 'servinfo')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x3333ff,
@@ -1359,7 +1361,7 @@ client.fetchUser(id)
 
 client.on('message', message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'userinfo')) {
+  if(message.content.startsWith(prefix4 + "userinfo" || prefix3 + "userinfo" || prefix2 + "userinfo" || prefix + 'userinfo')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x3333ff,
@@ -1501,7 +1503,7 @@ client.fetchUser(id)
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + "say")) {
+  if(message.content.startsWith(prefix4 + "say" || prefix3 + "say" || prefix2 + "say" || prefix + "say")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x008800,
@@ -1537,7 +1539,7 @@ author: {
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
   if(message.author === client.user) return;
-  if(message.content === prefix + 'memes') {
+  if(message.content === prefix4 + "memes" || prefix3 + "memes" || prefix2 + "memes" || prefix + 'memes') {
 	  	  	  	var t_log = {
    embed: {
 color: 0x0088ff,
@@ -1582,7 +1584,7 @@ author: {
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'memes дружко')) {
+  if(message.content.startsWith(prefix4 + "memes дружко" || prefix3 + "memes дружко" || prefix2 + "memes дружко" || prefix + 'memes дружко')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x550000,
@@ -1628,7 +1630,7 @@ author: {
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + 'memes мз')) {
+  if(message.content.startsWith(prefix4 + "memes мз" || prefix3 + "memes мз" || prefix2 + "memes мз" || prefix + 'memes мз')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x558800,
@@ -1663,7 +1665,7 @@ author: {
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'memes fcplm')) {
+  if(message.content.startsWith(prefix4 + "fcplm" || prefix3 + "fcplm" || prefix2 + "fcplm" || prefix + 'memes fcplm')) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x55ff00,
