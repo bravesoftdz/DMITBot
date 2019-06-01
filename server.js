@@ -12,7 +12,7 @@ var prefix2 = botconfig.prefix_a
 var prefix3 = botconfig.prefix_b
 var prefix4 = botconfig.prefix_c
 var blockid = "396331064710135809" && "461516811855200256"
-
+ 
 
 	var blockmsg_embed = {
    embed: {
