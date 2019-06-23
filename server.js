@@ -8,10 +8,55 @@ const fs = require('fs');
 const botconfig = require('./JSON/botconfig.json');
 const data = require("./JSON/data.json");
 
+let prefix_a = botconfig.prefix_a
+let prefix_b = botconfig.prefix_b
+let prefix_c = botconfig.prefix_c
+
 var servers = {};
 var prefix = botconfig.prefix
 var blockid = "396331064710135809"
 client.login(botconfig.token)
+
+client.on('ready', () => {
+	process.stdout.write('\x1Bc');
+    console.log(`Starting ${client.user.tag}...`);
+    console.log("Loading JSON-modules...")
+    console.log("Loading Voice Streamer...")
+	console.log("Loading FS Component...")
+	console.log("Loading Date/Time Format Component...")	
+	console.log("Loading other components...")
+	var timerId = setInterval(function() {
+	process.stdout.write('\x1Bc'); 
+	  let randoman = client.guilds.random()
+    console.log("\n ██████    ████   ████   ██   ████████\n      ██   ██ ██ ██ ██           ██\n       ██  ██ ██ ██ ██   ██      ██\n       ██  ██  ███  ██   ██      ██\n      ██   ██       ██   ██      ██\n ██████    ██       ██   ██      ██\n\nDMITBot " + botconfig.version + " \(" + botconfig.date + "\)\n\(C\)opyright 2019 DMIT Development. All rights reserved.\n\nThis script started successfully.")
+	console.log("\nPing: " + client.ping + " ms | Memory usage: " + Math.round(process.memoryUsage().heapUsed / 1024) + " kB\nServers: " + client.guilds.size + " \(" + randoman.name + "\) | Users: " + client.users.size)
+    }, 2000);
+	if(client.ping > 4000) {
+		  client.user.setPresence({status: 'dnd'})
+  .then(console.log)
+  .catch(console.error);
+	}
+   var timerId = setInterval(function() {
+   client.user.setPresence({
+        game: {
+      name: client.users.size + " users | dm~help",
+      type: "Watching",
+      url: "https://youtube.com/DMITPlus"}})
+}, 12000)});
+
+client.on('ready', () => {
+    var timerId = setInterval(function() {
+   client.user.setPresence({
+        game: {
+   name: client.guilds.size + " servers | dm~help",
+   type: "Watching",
+	url: "https://youtube.com/DMITPlus"}})
+    }, 10000);
+});
+
+function emoji (id) {
+	return client.emojis.get(id).toString();
+	}
 
 	var blockmsg_embed = {
    embed: {
@@ -78,19 +123,17 @@ author: {
     description: "DMITBot left, kicked out, banned from **" + guild.name + "** server! Now it has **" + client.guilds.size + "** servers. \nCan you explain to the bot author what you didn't like? :worried:",
 	}}
 		  client.channels.get("564022728143929370").send(t_log);})
-		
-
 
 client.on("ready", () => {
 	process.stdout.write('\x1Bc'); 
-	client.user.setGame("Starting Dmitryev Bot...");
+	client.user.setGame("Starting DMITBot...");
 
 });
 
 
 client.on("message", message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + "test")) {
+  if(message.content.startsWith(prefix + "test") || message.content.startsWith(prefix_a + "test") || message.content.startsWith(prefix_b + "test") || message.content.startsWith(prefix_c + "test")) {
 	  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -158,7 +201,7 @@ message.channel.send(test_embed);
   client.on('message', message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + 'about')) {
+    if(message.content.startsWith(prefix + 'about') || message.content.startsWith(prefix_a + "about") || message.content.startsWith(prefix_b + "about") || message.content.startsWith(prefix_c + "about")) {
 			  	  	var t_log = {
    embed: {
 color: 0x008800,
@@ -214,55 +257,20 @@ message.channel.send(about_embed);
   }});
   
 
-
-client.on('ready', () => {
-			process.stdout.write('\x1Bc');
-    console.log(`Starting ${client.user.tag}...`);
-    console.log("Loading JSON-modules...")
-    console.log("Loading Voice Streamer...")
-	console.log("Loading FS Component...")
-	console.log("Loading Date/Time Format Component...")	
-	console.log("Loading other components...")
-	var timerId = setInterval(function() {
-	process.stdout.write('\x1Bc'); 
-    console.log("\n ██████    ████   ████   ██   ████████\n      ██   ██ ██ ██ ██           ██\n       ██  ██ ██ ██ ██   ██      ██\n       ██  ██  ███  ██   ██      ██\n      ██   ██       ██   ██      ██\n ██████    ██       ██   ██      ██\n\nDMITBot " + botconfig.version + " \(" + botconfig.date + "\)\n\(C\)opyright 2019 DMIT Development. All rights reserved.\n\nThis script completed successfully.")
-	console.log("\nPing: " + client.ping + " ms | Memory usage: " + Math.round(process.memoryUsage().heapUsed / 1024) + " kB | Servers: " + client.guilds.size + " | Users: " + client.users.size)
-    }, 4000);
-   var timerId = setInterval(function() {
-   client.user.setPresence({
-        game: {
-      name: client.users.size + " users | dm~help",
-      type: "Watching",
-      url: "https://youtube.com/DMITPlus"}})
-}, 12000)});
-
-
-client.on('ready', () => {
-
-    var timerId = setInterval(function() {
-   client.user.setPresence({
-        game: {
-   name: client.guilds.size + " servers | dm~help",
-   type: "Watching",
-	url: "https://youtube.com/DMITPlus"}})
-    }, 10000);
-});
-
 client.on('message', message => {
 	if (!message.guild) return;
-    if (message.content.startsWith(prefix + 'mass-say 1384-0592-Дмитрий-DNSHOME')) {
+    if (message.content.startsWith(prefix + 'mass-say ')) {
+		if(message.author.id !== "484921597015359488") return;
         client.guilds.forEach(guild => {
             let channels = guild.channels.filter(channel => channel.type === 'text' && channel.permissionsFor(guild.members.get(client.user.id)).has('SEND_MESSAGES'));
-            if (channels.size > 0) channels.first().send("Новый формат канала DMITPlus выйдет в 17:00 МСК.\nhttps://www.youtube.com/watch?v=jec2RgreHU8");
+            if (channels.size > 0) channels.first().send(message.content.split(" ").slice(1).join(" "));
         })
     }
 });
 
-
-
 client.on('message', message => {
   if (!message.guild) return;
-  if (message.content.startsWith(prefix + 'ban')) {
+  if (message.content.startsWith(prefix + 'ban') || message.content.startsWith(prefix_a + "ban") || message.content.startsWith(prefix_b + "ban") || message.content.startsWith(prefix_c + "ban")) {
 	  	   	  if(message.channel.type === 'dm') return;
 			  
 		    if(blockid === message.author.id) {
@@ -372,7 +380,7 @@ author: {
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
-    if (message.content.startsWith(prefix + 'audio play ')) {
+    if (message.content.startsWith(prefix + 'audio play ') || message.content.startsWith(prefix_a + "audio play ") || message.content.startsWith(prefix_b + "audio play ") || message.content.startsWith(prefix_c + "audio play ")) {
 		if(!servers[message.guild.id]) servers[message.guild.id] = {
 			queue: []
 		};
@@ -443,24 +451,24 @@ author: {
   description: ":hourglass_flowing_sand: Загрузка..."
 					}
 	}
-						  const streamOptions = { bitrate: 72000 };
+						  const streamOptions = { bitrate: 80000 };
 						  client.channels.get("564022728143929370").send(t_log);
    	 const voiceChannel = message.member.voiceChannel;
     if (!voiceChannel) {
       return message.channel.send(auderr1_embed);
     }
-	    const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
+    voiceChannel.join()
+      .then(connnection => {
+		  	    const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
     if (!valid) {
       return message.channel.send(auderr2_embed);	
     }
-    voiceChannel.join()
-      .then(connnection => {
 		var server = servers[message.guild.id]
 		message.channel.send(audload_embed).then(function (message) {
 			var timerId = setInterval(function() {
 				clearInterval(timerId);
                 message.delete()
-		}, 12000)}).catch(function() {
+		}, 6000)}).catch(function() {
               //Something
              });
 	    let stream = yt(server.queue[0], {
@@ -477,22 +485,18 @@ author: {
        });
 });
 				yt.getInfo(message.content.split(" ").slice(1).join(" "), function(err, info) {
-		var audplay_embed = {
+		var audplay1_embed = {
         embed: {
             color: 0x4400ff,
-
             author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps",
- 
-						}	
-	}
+		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps",	
+		}}
 			var auderr2_embed = {
         embed: {
             color: 0xff0000,
-
             author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
@@ -500,11 +504,30 @@ author: {
   description: ":no_entry_sign: Ошибка открытия ссылки " + message.content.split(" play ").slice(1).join(" ") + ". \nПроверьте адрес ссылки и повторите попытку позднее.\nЕсли до сих пор не удается получить доступ к ссылке, введите другой адрес."
 					}
 	}
-message.channel.send(audplay_embed);
+message.channel.send(audplay1_embed).then(function (message) {
+			var timerId = setInterval(function() {
+				   if(message.guild.voiceConnection.dispatcher.time > 36000) return
+				var audplay_embed = {
+        embed: {
+            color: 0x4400ff,
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps\n\n" + strftime('%M:%S', new Date(message.guild.voiceConnection.dispatcher.time)),	
+		}}
+                message.edit(audplay_embed)
+		}, 6000)}).catch(function() {
+              //Something
+             });
+	})
     if (!voiceChannel) {
       return message.channel.send(auderr3_embed);
-				}})
       };
+	const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
+    if (!valid) {
+      return message.channel.send(auderr2_embed);
+    }
 var urlyt = { url : message.content.split(" play ").slice(1).join(" ")};
 
 fs.writeFile("json/data.json", JSON.stringify(urlyt), function(err) {
@@ -512,62 +535,11 @@ fs.writeFile("json/data.json", JSON.stringify(urlyt), function(err) {
         return console.log(err);
     }
 }); 
-});
-
-client.on('message', message => {
-    if (message.content.startsWith(prefix + 'audio pause')) {
-		const streamOptions = { bitrate: 72000 };
-	var audpause_embed = {
-        embed: {
-            color: 0x4400ff,
-
-            author: {
-                         name: "Аудиоплеер",
-                         icon_url: client.user.avatarURL
-                    },
-                         description: "Воспроизведение трека приостановлено. Чтобы продолжить, введите `dm~audio resume`."
-					}
-	}
-	 const voiceChannel = message.member.voiceChannel;
-		   const dispatcher = message.guild.voiceConnection.playStream(data.url, streamOptions);
-		   message.channel.send(audpause_embed);
-	       dispatcher.on('pause', () => {
-			});
-}});
-
-client.on('message', message => {
-    if (message.content.startsWith(prefix + 'audio resume')) {
-		const streamOptions = { bitrate: 72000 };
-	 const voiceChannel = message.member.voiceChannel;
-		   const dispatcher = message.guild.voiceConnection.playStream(data.url, streamOptions);
-	       dispatcher.on('resume', () => {
-			   dispatcher
-			   				yt.getInfo(data.url, function(err, info) {
-
-		var audplay_embed = {
-        embed: {
-            color: 0x4400ff,
-
-            author: {
-                name: "Аудиоплеер",
-                icon_url: client.user.avatarURL
-            },
-		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps",
- 
-						}	
-	}
-	 message.channel.send(audplay_embed);
-message.channel.send(audplay_embed);
-    if (!voiceChannel) {
-      return message.channel.send(auderr3_embed);
-					}})
-      })
-			};
-});
+	}});
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
-    if (message.content.startsWith(prefix + 'audio stop')) {
+    if (message.content.startsWith(prefix + 'audio stop') || message.content.startsWith(prefix_a + "audio stop") || message.content.startsWith(prefix_b + "audio stop") || message.content.startsWith(prefix_c + "audio stop")) {
 					  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -606,12 +578,50 @@ author: {
 	if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();		
 }});
 
+client.on('message', message => {
+	if(message.channel.type === 'dm') return;
+    if (message.content.startsWith(prefix + 'audio pause') || message.content.startsWith(prefix_a + "audio pause") || message.content.startsWith(prefix_b + "audio pause") || message.content.startsWith(prefix_c + "audio pause")) {
+					  	  	var t_log = {
+   embed: {
+color: 0xff8800,
+author: {
+     name: "Commands Log",
+},
+    description: message.author.tag + " typing `" + message.content + "` on " + message.guild.name + "/" + message.channel.name,
+	   fields: [
+      {
+           name: "Server ID",
+           value: message.guild.id
+    },
+       {
+           name: "Channel ID",
+           value: message.channel.id
+       },
+    {
+        name: "User ID",
+        value: message.author.id
+    },
+      ]
+		}}
+	var audleave_embed = {
+        embed: {
+            color: 0x4400ff,
 
-
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+  description: "Прослушивание трека приостановлено.\nДля воспроизведения трека введите `dm~audio play"
+		}
+					};
+    message.channel.send(audpause_embed);	
+	var server = servers[message.guild.id]
+	if (message.guild.voiceConnection) message.guild.voiceConnection.dispatcher.pause();		
+}});
 
 client.on('message', message => {
     if(message.channel.type === 'dm') return;
-    if(message.content === prefix + "support") {
+    if(message.content === prefix + "support" || message.content === prefix_a + "support" || message.content === prefix_b + "support" || message.content === prefix_c + "support") {
 			  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -657,7 +667,7 @@ author: {
    client.on("message", message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "support bug")) {
+    if(message.content.startsWith(prefix + "support bug") || message.content.startsWith(prefix_a + "support bug") || message.content.startsWith(prefix_b + "support bug") || message.content.startsWith(prefix_c + "support bug")) {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -711,7 +721,7 @@ client.fetchUser(id)
       client.on("message", message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "support note")) {
+    if(message.content.startsWith(prefix + "support note") || message.content.startsWith(prefix_a + "support note") || message.content.startsWith(prefix_b + "support note") || message.content.startsWith(prefix_c + "support note")) {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -767,7 +777,7 @@ client.fetchUser(id)
    client.on("message", message => {
     if(message.author === client.user) return;
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content === prefix + "help") {
+    if(message.content === prefix + "help"  || message.content === prefix_a + "help" || message.content === prefix_b + "help" || message.content.startsWith === prefix_c + "help") {
 			  	  	var t_log = {
    embed: {
 color: 0x007700,
@@ -803,7 +813,7 @@ author: {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-  description: "Версия " + botconfig.version + " (" + botconfig.date + ")\nПрефикс: `dm~`. Для выполнения пишите `<префикс><имя команды>`",
+  description: "Префикс: `dm~` `dm!` `d!` `d~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
                     name: "Справка",
@@ -825,7 +835,10 @@ author: {
                     name: "Аудиоплеер",
                     value: "audio play <ссылка> - воспроизведение трека\r\naudio stop - остановка трека и выход из голосового канала"
              }
-            ]
+            ],
+				footer: {
+                          text: "Версия " + botconfig.version + " (" + botconfig.date + "\)",
+				},
         }
     };
   } else {
@@ -837,7 +850,7 @@ author: {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-  description: "Версия " + botconfig.version + " (" + botconfig.date + ", бесплатная версия)\nПрефикс: `dm~`. Для выполнения пишите `<префикс><имя команды>`",
+  description: "Префикс: `dm~` `dm!` `d!` `d~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
                     name: "Справка",
@@ -859,7 +872,10 @@ author: {
                     name: "Аудиоплеер",
                     value: "audio play <ссылка> - воспроизведение трека\r\naudio stop - остановка трека и выход из г. канала"
              }
-            ]
+            ],
+		        footer: {
+                          text: "Версия " + botconfig.version + " (" + botconfig.date + ", бесплатная версия)",
+				},
         }
     };  
   }}
@@ -869,7 +885,7 @@ message.channel.send(help_embed);
  
   
 client.on('message', function(message) { 
-    if (message.content.startsWith(prefix + "prune")) { 
+    if (message.content.startsWith(prefix + "prune") || message.content.startsWith(prefix_a + "prune") || message.content.startsWith(prefix_b + "prune") || message.content.startsWith(prefix_c + "prune")) { 
     if(message.channel.type === 'dm') return;
 		  	  	var t_log = {
    embed: {
@@ -951,7 +967,7 @@ author: {
 
 client.on('message', message => {
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "myavatar")) {
+    if(message.content.startsWith(prefix + "myavatar") || message.content.startsWith(prefix_a + "myavatar") || message.content.startsWith(prefix_b + "myavatar") || message.content.startsWith(prefix_c + "myavatar")) {
 			  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -1007,7 +1023,7 @@ client.fetchUser(id)
 
   client.on('message', message => {
     if (!message.guild) return;
-    if (message.content.startsWith(prefix + 'kick')) {
+    if (message.content.startsWith(prefix + 'kick') || message.content.startsWith(prefix_a + "kick") || message.content.startsWith(prefix_b + "kick") || message.content.startsWith(prefix_c + "kick")) {
 	  if(message.channel.type === 'dm') return;
 	    if(blockid === message.author.id) {
 
@@ -1108,7 +1124,7 @@ author: {
 
   client.on('message', message => {
 	  	  	   	  if(message.channel.type === 'dm') return;
-    if (message.content === prefix + 'ping') {
+    if (message.content === prefix + 'ping' || message.content === prefix_a + "ping" || message.content === prefix_b + "ping" || message.content === prefix_c + "ping") {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -1147,7 +1163,7 @@ author: {
                 name: "Пинг",
                 icon_url: client.user.avatarURL
             },
-  description: "Ваш пинг составляет " + client.ping + " с задержкой до 5 секунд.\n\nСделайте пожертвование, чтобы бот пинганул без задержек. Подробнее - пишите `dm~donate`"
+  description: message.author + ", Ваш пинг составляет " + client.ping + " мсек с задержкой до 5 секунд.\n\nСделайте пожертвование, чтобы бот пинганул без задержек. Подробнее - пишите `dm~donate`"
 		}
 					};
         message.channel.send(ping_embed)
@@ -1168,7 +1184,7 @@ client.on('message', message => {
     if(message.content.startsWith(prefix + 'reset')) {
      message.channel.send('Перезагрузка...')
      .then(msg => client.destroy())
-     .then(() => client.login('NTA3NTQwMzY4NDQzODM0Mzc0.D0Fgxw.7kPgrGBLmarQ0A36WsuXnxQugSQ'));
+     .then(() => client.login(botconfig.token));
     }
 });
 
@@ -1181,7 +1197,7 @@ function resetBot(channel) {
     client.on('message', message => {
     if(message.author === client.user) return;
 	if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + 'links')) {
+    if(message.content.startsWith(prefix + 'links') || message.content.startsWith(prefix_a + "links") || message.content.startsWith(prefix_b + "links") || message.content.startsWith(prefix_c + "links")) {
 			  	  	var t_log = {
    embed: {
 color: 0x2255ff,
@@ -1383,7 +1399,7 @@ function clean(text) {
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + 'ads +')) {
+  if(message.content.startsWith(prefix + 'ads +') || message.content.startsWith(prefix_a + "ads +") || message.content.startsWith(prefix_b + "ads +") || message.content.startsWith(prefix_c + "ads +")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0xffff00,
@@ -1429,7 +1445,7 @@ message.channel.send(ads_err_embed);
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + '8ball')) {
+  if(message.content.startsWith(prefix + '8ball') || message.content.startsWith(prefix_a + "8ball") || message.content.startsWith(prefix_b + "8ball") || message.content.startsWith(prefix_c + "8ball")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x2200ff,
@@ -1488,7 +1504,7 @@ client.fetchUser(id)
 
 client.on('message', message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'servinfo')) {
+  if(message.content.startsWith(prefix + 'servinfo') || message.content.startsWith(prefix_a + "servinfo") || message.content.startsWith(prefix_b + "servinfo") || message.content.startsWith(prefix_c + "servinfo")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x3333ff,
@@ -1570,7 +1586,7 @@ client.fetchUser(id)
 
 client.on('message', message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'userinfo')) {
+  if(message.content.startsWith(prefix + 'userinfo') || message.content.startsWith(prefix_a + "userinfo") || message.content.startsWith(prefix_b + "userinfo") || message.content.startsWith(prefix_c + "userinfo")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x3333ff,
@@ -1582,15 +1598,15 @@ author: {
       {
            name: "Server ID",
            value: message.guild.id
-    },
+      },
        {
            name: "Channel ID",
            value: message.channel.id
        },
-    {
+     {
         name: "User ID",
         value: message.author.id
-    },
+     },
       ]
 		}}
 	  if(message.channel.type === 'dm') return;
@@ -1599,6 +1615,9 @@ author: {
 	  message.channel.send(blockmsg_embed)
   } else {
 	  let args = message.content.split(" ").slice(1);
+      if(message.guild.members.get(args[0].id)) {
+		  return message.channel.send("Пишите правильный ID")
+	  }
 	  let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
 	  let argsUser = message.guild.member.user || message.author
 	  if (member){argsUser = member.user}
@@ -1641,8 +1660,8 @@ author: {
             {
                  name: "Статус",
                  value: game
-            },
-            {
+		    },
+			{
                  name: "Дата регистрации",
                  value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(" + diff1 + " мес. назад\)"
             },
@@ -1726,7 +1745,7 @@ client.on('message', message => {
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + "say ")) {
+  if(message.content.startsWith(prefix + "say ") || message.content.startsWith(prefix_a + "say ") || message.content.startsWith(prefix_b + "say ") || message.content.startsWith(prefix_c + "say ")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x008800,
@@ -1768,7 +1787,7 @@ client.on('message', message => {
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + 'emoji-ind')) {
+  if(message.content.startsWith(prefix + 'emoji-ind') || message.content.startsWith(prefix_a + "emoji-ind") || message.content.startsWith(prefix_b + "emoji-ind") || message.content.startsWith(prefix_c + "emoji-ind")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x558800,
@@ -1828,7 +1847,7 @@ client.fetchUser(id)
 client.on('message', message => {
   if(message.author === client.user) return;
   if(message.channel.type === 'dm') return;
-  if(message.content.startsWith(prefix + 'donate')) {
+  if(message.content.startsWith(prefix + 'donate') || message.content.startsWith(prefix_a + "donate") || message.content.startsWith(prefix_b + "donate") || message.content.startsWith(prefix_c + "donate")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x00aa00,
