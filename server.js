@@ -40,16 +40,16 @@ client.on('ready', () => {
    client.user.setPresence({
         game: {
       name: client.users.size + " users | dm~help",
-      type: "Watching",
       url: "https://youtube.com/DMITPlus"}})
 }, 12000)});
+
+var moscow = new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow"})
 
 client.on('ready', () => {
     var timerId = setInterval(function() {
    client.user.setPresence({
         game: {
-   name: client.guilds.size + " servers | dm~help",
-   type: "Watching",
+   name: client.guilds.size + " servers | " + strftime("%H:%M", new Date(moscow)) + " (RU/MSC)",
 	url: "https://youtube.com/DMITPlus"}})
     }, 10000);
 });
@@ -506,7 +506,7 @@ author: {
 	}
 message.channel.send(audplay1_embed).then(function (message) {
 			var timerId = setInterval(function() {
-				   if(message.guild.voiceConnection.dispatcher.time > 36000) return
+				clearInterval(timerId);
 				var audplay_embed = {
         embed: {
             color: 0x4400ff,
@@ -520,9 +520,23 @@ message.channel.send(audplay1_embed).then(function (message) {
 		}, 6000)}).catch(function() {
               //Something
              });
-	})
+			 var timerId = setInterval(function() {
+				clearInterval(timerId);
+				var audplay_embed = {
+        embed: {
+            color: 0x4400ff,
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps\n\n" + strftime('%M:%S', new Date(message.guild.voiceConnection.dispatcher.time)),	
+		}}
+                message.edit(audplay_embed)
+		}, 14000)})
+	}
+	const voiceChannel = message.member.voiceChannel;
     if (!voiceChannel) {
-      return message.channel.send(auderr3_embed);
+      return message.channel.send(auderr1_embed);
       };
 	const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
     if (!valid) {
@@ -535,7 +549,7 @@ fs.writeFile("json/data.json", JSON.stringify(urlyt), function(err) {
         return console.log(err);
     }
 }); 
-	}});
+	});
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
@@ -1614,14 +1628,16 @@ author: {
 
 	  message.channel.send(blockmsg_embed)
   } else {
-	  let args = message.content.split(" ").slice(1);
-      if(message.guild.members.get(args[0].id)) {
-		  return message.channel.send("Пишите правильный ID")
-	  }
-	  let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
+      let args = message.content.split(" ").slice(1);
+	  let member = message.guild.member(message.mentions.users.first())
 	  let argsUser = message.guild.member.user || message.author
-	  if (member){argsUser = member.user}
-	  else {argsUser = message.author}
+	  if(message.guild.member(args[0])) {
+	  argsUser = message.guild.member(args[0]).user
+	  } else {
+	  if (member) {
+			  argsUser = member.user
+	  }
+	  else {argsUser = message.author} }
 	  let statuses = {
 		  online: "Онлайн",
 		  idle: "Не активен",
@@ -1638,7 +1654,7 @@ author: {
 	  let month = 30
 	  let date1 = new Date(message.createdTimestamp)
 	  let date2 = new Date(argsUser.createdTimestamp)
-	  let date3 = new Date(message.guild.member(argsUser).joinedTimestamp)
+	  let date3 = new Date(message.guild.member(argsUser).joinedTimestamp )
 	  if (Math.round(Math.abs((date1.getTime() - date3.getTime()) / day)) > 30 && Math.round(Math.abs((date1.getTime() - date2.getTime()) / day)) > 30) {
 		  let diff1 = Math.round(Math.abs((date1.getTime() - date2.getTime()) / day / month))
 		  		  let diff2 = Math.round(Math.abs((date1.getTime() - date3.getTime()) / day / month))
@@ -1646,7 +1662,7 @@ author: {
     embed: {
         color: 0x8800ff,
         author: {
-              name: "О пользователе \"" + argsUser.username + "\"",
+              name: "О пользователе \"" + argsUser.tag + "\"",
               icon_url: client.user.avatarURL
                    },
 			  thumbnail: {
