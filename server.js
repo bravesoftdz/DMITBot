@@ -17,6 +17,7 @@ var prefix = botconfig.prefix
 var blockid = "396331064710135809"
 client.login(botconfig.token)
 
+
 client.on('ready', () => {
 	process.stdout.write('\x1Bc');
     console.log(`Starting ${client.user.tag}...`);
@@ -36,23 +37,27 @@ client.on('ready', () => {
   .then(console.log)
   .catch(console.error);
 	}
-   var timerId = setInterval(function() {
-   client.user.setPresence({
-        game: {
-      name: client.users.size + " users | dm~help",
-      url: "https://youtube.com/DMITPlus"}})
-}, 12000)});
-
-var moscow = new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow"})
-
-client.on('ready', () => {
-    var timerId = setInterval(function() {
-   client.user.setPresence({
-        game: {
-   name: client.guilds.size + " servers | " + strftime("%H:%M", new Date(moscow)) + " (RU/MSC)",
-	url: "https://youtube.com/DMITPlus"}})
-    }, 10000);
 });
+
+  var timerId = setInterval(function users() {
+   client.user.setPresence({
+        game: {
+      name: client.users.size + " users | " + botconfig.prefix + "help",
+      url: "https://youtube.com/DMITPlus"}})
+   timerId = setTimeout(function servers() {
+   client.user.setPresence({
+        game: {
+   name: client.guilds.size + " servers | " + botconfig.prefix + "help",
+	url: "https://youtube.com/DMITPlus"}})
+    timerId = setTimeout(function clock() {
+	var moscow = new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow"})
+   client.user.setPresence({
+        game: {
+   name: strftime("%H:%M", new Date(moscow)) + " (UTC+3)",
+	url: "https://youtube.com/DMITPlus"}})
+    }, 6000)
+    }, 4000)
+}, 16000)
 
 function emoji (id) {
 	return client.emojis.get(id).toString();
@@ -485,6 +490,12 @@ author: {
        });
 });
 				yt.getInfo(message.content.split(" ").slice(1).join(" "), function(err, info) {
+					let information = "(Нет информации)"
+                    if(typeof (info.title) != undefined) {
+						information = "(Нет информации)"
+					}
+				var timerId = setInterval(function() {
+				    clearInterval(timerId);
 		var audplay1_embed = {
         embed: {
             color: 0x4400ff,
@@ -492,7 +503,7 @@ author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps",	
+		description: message.author + ": проигрывается **" + (info.title || "\(Нет информации\)") + "** на " + streamOptions.bitrate / 1000 + " kbps",	
 		}}
 			var auderr2_embed = {
         embed: {
@@ -504,52 +515,16 @@ author: {
   description: ":no_entry_sign: Ошибка открытия ссылки " + message.content.split(" play ").slice(1).join(" ") + ". \nПроверьте адрес ссылки и повторите попытку позднее.\nЕсли до сих пор не удается получить доступ к ссылке, введите другой адрес."
 					}
 	}
-message.channel.send(audplay1_embed).then(function (message) {
-			var timerId = setInterval(function() {
-				clearInterval(timerId);
-				var audplay_embed = {
-        embed: {
-            color: 0x4400ff,
-            author: {
-                name: "Аудиоплеер",
-                icon_url: client.user.avatarURL
-            },
-		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps\n\n" + strftime('%M:%S', new Date(message.guild.voiceConnection.dispatcher.time)),	
-		}}
-                message.edit(audplay_embed)
-		}, 6000)}).catch(function() {
-              //Something
-             });
-			 var timerId = setInterval(function() {
-				clearInterval(timerId);
-				var audplay_embed = {
-        embed: {
-            color: 0x4400ff,
-            author: {
-                name: "Аудиоплеер",
-                icon_url: client.user.avatarURL
-            },
-		description: message.author + ": проигрывается **" + info.title + "** на " + streamOptions.bitrate / 1000 + " kbps\n\n" + strftime('%M:%S', new Date(message.guild.voiceConnection.dispatcher.time)),	
-		}}
-                message.edit(audplay_embed)
-		}, 14000)})
+message.channel.send(audplay1_embed)
+}, 4000)})
 	}
-	const voiceChannel = message.member.voiceChannel;
-    if (!voiceChannel) {
-      return message.channel.send(auderr1_embed);
-      };
-	const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
-    if (!valid) {
-      return message.channel.send(auderr2_embed);
-    }
 var urlyt = { url : message.content.split(" play ").slice(1).join(" ")};
 
 fs.writeFile("json/data.json", JSON.stringify(urlyt), function(err) {
     if(err) {
         return console.log(err);
-    }
-}); 
-	});
+    }; 
+})});
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
