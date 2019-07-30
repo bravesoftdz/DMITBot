@@ -385,7 +385,7 @@ author: {
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
-    if (message.content.startsWith(prefix + 'audio play ') || message.content.startsWith(prefix_a + "audio play ") || message.content.startsWith(prefix_b + "audio play ") || message.content.startsWith(prefix_c + "audio play ")) {
+    if (message.content.startsWith(prefix + 'audio play ')) {
 		if(!servers[message.guild.id]) servers[message.guild.id] = {
 			queue: []
 		};
@@ -462,18 +462,18 @@ author: {
     if (!voiceChannel) {
       return message.channel.send(auderr1_embed);
     }
-    voiceChannel.join()
-      .then(connnection => {
-		  	    const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
+	    const valid = yt.validateURL(message.content.split(" play ").slice(1).join(" "));
     if (!valid) {
       return message.channel.send(auderr2_embed);	
     }
+    voiceChannel.join()
+      .then(connnection => {
 		var server = servers[message.guild.id]
 		message.channel.send(audload_embed).then(function (message) {
 			var timerId = setInterval(function() {
 				clearInterval(timerId);
                 message.delete()
-		}, 6000)}).catch(function() {
+		}, 12000)}).catch(function() {
               //Something
              });
 	    let stream = yt(server.queue[0], {
@@ -490,24 +490,10 @@ author: {
        });
 });
 				yt.getInfo(message.content.split(" ").slice(1).join(" "), function(err, info) {
-					let information = "(Нет информации)"
-                    if(typeof (info.title) != undefined) {
-						information = "(Нет информации)"
-					}
-				var timerId = setInterval(function() {
-				    clearInterval(timerId);
-		var audplay1_embed = {
-        embed: {
-            color: 0x4400ff,
-            author: {
-                name: "Аудиоплеер",
-                icon_url: client.user.avatarURL
-            },
-		description: message.author + ": проигрывается **" + (info.title || "\(Нет информации\)") + "** на " + streamOptions.bitrate / 1000 + " kbps",	
-		}}
 			var auderr2_embed = {
         embed: {
             color: 0xff0000,
+
             author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
@@ -515,16 +501,35 @@ author: {
   description: ":no_entry_sign: Ошибка открытия ссылки " + message.content.split(" play ").slice(1).join(" ") + ". \nПроверьте адрес ссылки и повторите попытку позднее.\nЕсли до сих пор не удается получить доступ к ссылке, введите другой адрес."
 					}
 	}
-message.channel.send(audplay1_embed)
-}, 4000)})
+			let information = "(Нет информации)"
+				var timerId = setInterval(function() {
+				clearInterval(timerId);
+		if (err) { information = "(Нет информации)" } else { information = info.player_response.videoDetails.title }
+		var audplay_embed = {
+        embed: {
+            color: 0x4400ff,
+
+            author: {
+                name: "Аудиоплеер",
+                icon_url: client.user.avatarURL
+            },
+		description: message.author + ": проигрывается **" + information + "** на " + streamOptions.bitrate / 1000 + " kbps",
+ 
+						}	
 	}
+message.channel.send(audplay_embed);
+		}, 15000)})
+    if (!voiceChannel) {
+      return message.channel.send(auderr3_embed);
+				}}
 var urlyt = { url : message.content.split(" play ").slice(1).join(" ")};
 
 fs.writeFile("json/data.json", JSON.stringify(urlyt), function(err) {
     if(err) {
         return console.log(err);
-    }; 
-})});
+    }
+})}); 
+
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') return;
@@ -1654,11 +1659,11 @@ author: {
 		    },
 			{
                  name: "Дата регистрации",
-                 value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(" + diff1 + " мес. назад\)"
+                 value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(~" + diff1 + " мес. назад\)"
             },
             {
                  name: "Дата входа в сервер",
-                 value: strftime('%d.%m.%Y в %H:%M', new Date(message.guild.member(argsUser).joinedTimestamp)) + " \(" + diff2 + " мес. назад\)"
+                 value: strftime('%d.%m.%Y в %H:%M', new Date(message.guild.member(argsUser).joinedTimestamp)) + " \(~" + diff2 + " мес. назад\)"
             },
             {
                  name: "Роли",
