@@ -473,7 +473,7 @@ author: {
 			var timerId = setInterval(function() {
 				clearInterval(timerId);
                 message.delete()
-		}, 12000)}).catch(function() {
+		}, 10000)}).catch(function() {
               //Something
              });
 	    let stream = yt(server.queue[0], {
@@ -518,7 +518,7 @@ author: {
 						}	
 	}
 message.channel.send(audplay_embed);
-		}, 15000)})
+		}, 11000)})
     if (!voiceChannel) {
       return message.channel.send(auderr3_embed);
 				}}
@@ -811,7 +811,7 @@ author: {
             fields: [
                 {
                     name: "Справка",
-                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\nservinfo - о сервере\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
+                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
                 },
                 {
                     name: "Опции",
@@ -819,7 +819,7 @@ author: {
                 },
                 {
                     name: "Модератор",
-                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuserinfo - о пользователе"
+                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
                     name: "Развлечения",
@@ -848,7 +848,7 @@ author: {
             fields: [
                 {
                     name: "Справка",
-                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\nservinfo - о сервере\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
+                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
                 },
                 {
                     name: "Опции",
@@ -856,7 +856,7 @@ author: {
                 },
                 {
                     name: "Модератор",
-                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuserinfo - о пользователе"
+                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
                     name: "Развлечения",
@@ -1498,7 +1498,7 @@ client.fetchUser(id)
 
 client.on('message', message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'servinfo') || message.content.startsWith(prefix_a + "servinfo") || message.content.startsWith(prefix_b + "servinfo") || message.content.startsWith(prefix_c + "servinfo")) {
+  if(message.content.startsWith(prefix + 'server') || message.content.startsWith(prefix_a + "server") || message.content.startsWith(prefix_b + "server") || message.content.startsWith(prefix_c + "server")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x3333ff,
@@ -1580,7 +1580,7 @@ client.fetchUser(id)
 
 client.on('message', message => {
   if(message.author === client.user) return;
-  if(message.content.startsWith(prefix + 'userinfo') || message.content.startsWith(prefix_a + "userinfo") || message.content.startsWith(prefix_b + "userinfo") || message.content.startsWith(prefix_c + "userinfo")) {
+  if(message.content.startsWith(prefix + 'user') || message.content.startsWith(prefix_a + "user") || message.content.startsWith(prefix_b + "user") || message.content.startsWith(prefix_c + "user")) {
 	  	  	  	var t_log = {
    embed: {
 color: 0x3333ff,
