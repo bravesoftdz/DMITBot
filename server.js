@@ -286,7 +286,7 @@ client.on('message', message => {
     const member = message.guild.member(user1);
 		  let args = message.content.split(" " + member + " ").slice(1).join(" ")
 		  			  console.log(args);
-		var banerr1_embed = {
+		var banerr3_embed = {
                             embed: {
                                color: 0xff0000,
                                author: {
@@ -308,7 +308,7 @@ client.on('message', message => {
 
    }
 };
-		var banerr3_embed = {
+		var banerr1_embed = {
                             embed: {
                                color: 0xff0000,
                                author: {
@@ -319,7 +319,7 @@ client.on('message', message => {
 
    }
 };
-    if (user1) {
+    if (user1 && message.member.hasPermission('ADMINISTRATOR')) {
       if (member) {
 		  		var bansucc_embed = {
                             embed: {
@@ -856,7 +856,7 @@ author: {
                 },
                 {
                     name: "Модератор",
-                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
+                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nservinfo - о сервере"
                 },
                 {
                     name: "Развлечения",
@@ -1058,7 +1058,7 @@ client.fetchUser(id)
 
    }
 };
-      if (user1) {
+      if (user1 && message.member.hasPermission('ADMINISTRATOR')) {
         if (member) {
 				  		  		var kick_log = {
    embed: {
