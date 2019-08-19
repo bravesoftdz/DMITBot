@@ -161,7 +161,13 @@ author: {
     },
       ]
 		}}
-
+ const plaform = os.platform()
+ if(os.platform() === 'win32') {
+ platform = "<:Win8_10:582736342119743691> Windows" }
+ else {
+	 if(os.plaform() === 'android') {
+	 "<:Android:604927427415769139> Android с Termux"}
+ }
 	var test_embed = {
    embed: {
 color: 0xff9900,
@@ -186,7 +192,7 @@ author: {
 
     {
         name: "Платформа",
-        value: os.platform()
+        value: platform
     },
          {
             name: "Процессор",
@@ -856,7 +862,7 @@ author: {
                 },
                 {
                     name: "Модератор",
-                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nservinfo - о сервере"
+                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
                     name: "Развлечения",
