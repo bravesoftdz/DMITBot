@@ -165,11 +165,11 @@ author: {
           platform = "<:Win8_10:582736342119743691> Windows" }
       else {
 	         if(os.plaform() === 'android') {
-	         platform = "<:Android:604927427415769139> Android с Termux"}
+	         platform = "<:Android:604927427415769139> Android с Termux"
              } else {
 				      if(os.platform() === 'linux') {
 						  platform = "<:Linux:604926787813769216> Linux"
-			 }}
+	  }}}
 	var test_embed = {
    embed: {
 color: 0xff9900,
