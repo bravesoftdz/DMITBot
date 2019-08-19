@@ -135,7 +135,6 @@ client.on("ready", () => {
 
 });
 
-
 client.on("message", message => {
   if(message.author === client.user) return;
   if(message.content.startsWith(prefix + "test") || message.content.startsWith(prefix_a + "test") || message.content.startsWith(prefix_b + "test") || message.content.startsWith(prefix_c + "test")) {
@@ -161,13 +160,16 @@ author: {
     },
       ]
 		}}
- const plaform = os.platform()
- if(os.platform() === 'win32') {
- platform = "<:Win8_10:582736342119743691> Windows" }
- else {
-	 if(os.plaform() === 'android') {
-	 "<:Android:604927427415769139> Android с Termux"}
- }
+      const plaform = os.platform()
+      if(os.platform() === 'win32') {
+          platform = "<:Win8_10:582736342119743691> Windows" }
+      else {
+	         if(os.plaform() === 'android') {
+	         platform = "<:Android:604927427415769139> Android с Termux"}
+             } else {
+				      if(os.platform() === 'linux') {
+						  platform = "<:Linux:604926787813769216> Linux"
+			 }}
 	var test_embed = {
    embed: {
 color: 0xff9900,
