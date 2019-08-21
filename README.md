@@ -1,4 +1,4 @@
-# DMITBot
+# DMIT Computers Bot Readme
 The source code is publicly available. Anyone can change this code to create their own bot under Discord.js.
 WARNING! It is forbidden to use the name "DMITBot" and "Dmitryev Bot" in their forks, as these names are protected by copyright. The following inscriptions are allowed only in bot messages: "Based by DMIT Computers [source code version]".
 
