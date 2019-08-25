@@ -2,8 +2,8 @@
    "token": "<token>",
    "prefix": "dm~",
    "prefix_a": "dm!",
-   "prefix_b": "d!",
+   "prefix_b": "d-",
    "prefix_c": "d~",
-   "version": "3.0",
-   "date": "30.07.2019"
+   "version": "3.0.3",
+   "date": "24.08.2019"
 }
