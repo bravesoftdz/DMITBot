@@ -32,7 +32,7 @@ client.on('ready', () => {
     console.log("\n ██████    ████   ████   ██   ████████\n      ██   ██ ██ ██ ██           ██\n       ██  ██ ██ ██ ██   ██      ██\n       ██  ██  ███  ██   ██      ██\n      ██   ██       ██   ██      ██\n ██████    ██       ██   ██      ██\n\nDMITBot " + botconfig.version + " \(" + botconfig.date + "\)\n\(C\)opyright 2019 DMIT Development. All rights reserved.\n\nThis script started successfully.")
 	console.log("\nPing: " + client.ping + " ms | Memory usage: " + Math.round(process.memoryUsage().heapUsed / 1024) + " kB\nServers: " + client.guilds.size + " \(" + randoman.name + "\) | Users: " + client.users.size)
     }, 2000);
-	if(client.ping > 4000) {
+	if(client.ping > 2000) {
 		  client.user.setPresence({status: 'dnd'})
   .then(console.log)
   .catch(console.error);
@@ -40,21 +40,18 @@ client.on('ready', () => {
 });
 
   var timerId = setInterval(function users() {
+	  	var moscow = new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow"})
    client.user.setPresence({
         game: {
-      name: client.users.size + " users | " + botconfig.prefix + "help",
-      url: "https://youtube.com/DMITPlus"}})
+      name: strftime("%H:%M", new Date(moscow)) + " (UTC+3)"}})
    timerId = setTimeout(function servers() {
    client.user.setPresence({
         game: {
-   name: client.guilds.size + " servers | " + botconfig.prefix + "help",
-	url: "https://youtube.com/DMITPlus"}})
+   name: client.guilds.size + " servers | " + botconfig.prefix + "help"}})
     timerId = setTimeout(function clock() {
-	var moscow = new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow"})
    client.user.setPresence({
         game: {
-   name: strftime("%H:%M", new Date(moscow)) + " (UTC+3)",
-	url: "https://youtube.com/DMITPlus"}})
+   name: client.users.size + " users | " + botconfig.prefix + "help"}})
     }, 6000)
     }, 4000)
 }, 16000)
@@ -135,6 +132,7 @@ client.on("ready", () => {
 
 });
 
+
 client.on("message", message => {
   if(message.author === client.user) return;
   if(message.content.startsWith(prefix + "test") || message.content.startsWith(prefix_a + "test") || message.content.startsWith(prefix_b + "test") || message.content.startsWith(prefix_c + "test")) {
@@ -164,7 +162,7 @@ author: {
       if(os.platform() === 'win32') {
           platform = "<:Win8_10:582736342119743691> Windows" }
       else {
-	         if(os.plaform() === 'android') {
+	         if(os.platform() === 'android') {
 	         platform = "<:Android:604927427415769139> Android с Termux"
              } else {
 				      if(os.platform() === 'linux') {
@@ -510,9 +508,23 @@ author: {
 					}
 	}
 			let information = "(Нет информации)"
+			let information_author = "(Нет информации)"
+			let information_viewcount = "(Нет информации)"
+			let information_published = "(Нет информации)"
 				var timerId = setInterval(function() {
 				clearInterval(timerId);
-		if (err) { information = "(Нет информации)" } else { information = info.player_response.videoDetails.title }
+		if (err) { information = "(Нет информации)" 
+		           information_author = "(Нет информации)"
+				   information_viewcount = "(Нет информации)"
+				   information_published = "(Нет информации)"
+				   } 
+			else {
+				   var strftimeRU = strftime.localizeByIdentifier('ru_RU')
+   				   information = info.player_response.videoDetails.title 
+				   information_author = info.player_response.videoDetails.author 
+				   information_viewcount = info.player_response.videoDetails.viewCount 
+				   information_published = strftimeRU('%d %B %Y г.', new Date(info.published))
+				   }
 		var audplay_embed = {
         embed: {
             color: 0x4400ff,
@@ -522,7 +534,20 @@ author: {
                 icon_url: client.user.avatarURL
             },
 		description: message.author + ": проигрывается **" + information + "** на " + streamOptions.bitrate / 1000 + " kbps",
- 
+ 	   fields: [
+    {
+           name: "Автор",
+           value: information_author
+    },
+	{
+		   name: "Просмотров",
+		   value: information_viewcount
+	},
+	{
+		   name: "Опубликовано",
+		   value: information_published
+	},
+      ]
 						}	
 	}
 message.channel.send(audplay_embed);
@@ -537,6 +562,7 @@ fs.writeFile("json/data.json", JSON.stringify(urlyt), function(err) {
         return console.log(err);
     }
 })}); 
+
 
 
 client.on('message', message => {
@@ -815,7 +841,7 @@ author: {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-  description: "Префикс: `dm~` `dm!` `d!` `d~`. Для выполнения пишите `<префикс><имя команды>`",
+  description: "Префикс: `dm~` `dm!` `d-` `d~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
                     name: "Справка",
@@ -827,7 +853,7 @@ author: {
                 },
                 {
                     name: "Модератор",
-                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
+                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\navatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
                     name: "Развлечения",
@@ -852,7 +878,7 @@ author: {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-  description: "Префикс: `dm~` `dm!` `d!` `d~`. Для выполнения пишите `<префикс><имя команды>`",
+  description: "Префикс: `dm~` `dm!` `d-` `d~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
                     name: "Справка",
@@ -864,7 +890,7 @@ author: {
                 },
                 {
                     name: "Модератор",
-                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\nmyavatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
+                    value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\navatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
                     name: "Развлечения",
@@ -969,7 +995,7 @@ author: {
 
 client.on('message', message => {
 		  	   	  if(message.channel.type === 'dm') return;
-    if(message.content.startsWith(prefix + "myavatar") || message.content.startsWith(prefix_a + "myavatar") || message.content.startsWith(prefix_b + "myavatar") || message.content.startsWith(prefix_c + "myavatar")) {
+    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix_a + "avatar") || message.content.startsWith(prefix_b + "avatar") || message.content.startsWith(prefix_c + "avatar")) {
 			  	  	var t_log = {
    embed: {
 color: 0xff8800,
@@ -1240,12 +1266,8 @@ author: {
            value: "https://youtube.com/DMITPlus"
       },
       {
-		   name: "Сайт-блог",
-           value: "http://dmitplus.blogspot.com/"
-      },
-      {
-		   name: "MyOwnTV",
-           value: "http://myowntv.org/dmcomp"
+		   name: "ВКонтакте",
+           value: "https://vk.com/dmitcompgroup"
       },
 	  {
 		   name: "Twitter",
@@ -1254,10 +1276,6 @@ author: {
       {
 		   name: "Telegram",
            value: "https://t.me/dmitcomp"
-      },
-	  {
-		   name: "Discord-сервер",
-           value: "https://discord.gg/eyqqk2R"
       },
 	  {
 		   name: "Приглашение бота",
@@ -1311,7 +1329,7 @@ author: {
    fields: [
       {
 		   name: "Пока новостей нет.",
-           value: "Вы можете либо прогуляться по нашим командам, либо зайти на наш Twitter: https://twitter.com/dmitplus, чтобы быть в курсе!"
+           value: "Вы можете либо прогуляться по нашим командам, либо зайти на наш группу ВК: https://vk.com/dmitcompgroup, чтобы быть в курсе!"
       },
       ]
    }
@@ -1534,6 +1552,12 @@ author: {
 
 	  message.channel.send(blockmsg_embed)
   } else {
+	  let afkCh = "Отсутствует"
+	  if(message.guild.afkChannel && message.guild.afkChannel.name) {
+	   afkCh = message.guild.afkChannel.name + " (" + message.guild.afkTimeout + ")"
+	  } else { 
+       afkCh = "Отсутствует" 
+      }
 	  	  	  						  client.channels.get("564022728143929370").send(t_log);
       let verifLvl = ['Отсутствует', '1-й уровень', '2-й уровень', '3-й уровень', '4-й уровень']
 	  message.guild.region = message.guild.region[0].toUpperCase() + message.guild.region.slice(1);
@@ -1557,8 +1581,12 @@ author: {
                  value: message.guild.owner.user.tag
             },
             {
-                 name: "Каналов | Ролей | Участников | Онлайн",
-                 value: message.guild.channels.size + " | " + message.guild.roles.size + " | " + message.guild.memberCount + " | " + message.guild.presences.size
+                 name: "Кол-во элементов сервера",
+                 value: message.guild.channels.size + " каналов | " + message.guild.roles.size + " ролей | " + message.guild.memberCount + " участников | " + message.guild.presences.size + " онлайн | " + message.guild.emojis.size + " эмоджи"
+            },
+            {
+                 name: "AFK-канал",
+                 value: afkCh
             },
             {
                    name: "Регион/Страна",
@@ -1745,6 +1773,12 @@ client.on('message', message => {
                                   }
 });
 
+client.on('message', message => {
+  if(message.author === client.user) return;
+  if(message.member.hasPermission('ADMINISTRATOR')) return;
+  if(message.content.startsWith("@everyone")) {
+	  message.channel.send(message.author + ", не пинай меня, задрал.")
+}});
 
 client.on('message', message => {
   if(message.author === client.user) return;
