@@ -178,28 +178,28 @@ author: {
     description: "Проверка прошла успешно. Никаких ошибок пока не обнаружено.",
    fields: [
       {
-           name: "Размер процесса",
+           name: "💾 Размер процесса",
            value: Math.round(process.memoryUsage().heapUsed / 1024) + " кБ"
     },
        {
-           name: "Время отправки",
+           name: "🏓 Время отправки",
            value: client.ping + " мсек"
        },
        {
-           name: "Время работы",
-           value: strftime('%d:%H:%M:%S', new Date(client.uptime))
+           name: "⏱ Время работы",
+           value: strftime('%H ч. %M мин. %S сек.', new Date(client.uptime - 25200000))
        },
 
     {
-        name: "Платформа",
+        name: "🛠 Платформа",
         value: platform
     },
          {
-            name: "Процессор",
+            name: "💡 Процессор",
             value: os.cpus()[0].model
          },
        {
-         name: "Кол-во серверов / пользователей",
+         name: "🏘 Кол-во серверов / пользователей",
          value: client.guilds.size + " / " + client.users.size
        }
       ]
@@ -244,7 +244,7 @@ author: {
    embed: {
 color: 0x0088ff,
 author: {
-     name: "О боте DmitBot",
+     name: "О боте DMITBot",
      icon_url: client.user.avatarURL
 },
    fields: [
@@ -254,11 +254,15 @@ author: {
     },
        {
            name: "Автор/Разработчик",
-           value: "`XD (\dmitcomputers\)#7004`"
+           value: "`dm1tcomp#7004`"
        },
+	{
+        name: "Исходные коды",
+        value: "https://github.com/dmitryevdev/dmitbot"
+    },
     {
         name: "Авторские права",
-        value: "Copyright © Dmit Computers, 2019. Все права защищены."
+        value: "Copyright © DMIT Computers, 2019. Все права защищены."
     },
       ]
    }
@@ -299,7 +303,7 @@ client.on('message', message => {
                                          name: "Ошибка",
                                          icon_url: client.user.avatarURL
                                        },
-			                   description: "Невозможно выполнить действия, поскольку бот/Вы не имеете права администратора.",
+			                   description: "🚫 Невозможно выполнить действия, поскольку бот/Вы не имеете права администратора.",
 
    }
 };
@@ -310,7 +314,7 @@ client.on('message', message => {
                                          name: "Ошибка",
                                          icon_url: client.user.avatarURL
                                        },
-			                   description: "Невозможно выполнить действие, поскольку в Вашем сервере нет этого участника, либо этот участник покинул Ваш сервер.",
+			                   description: "🚫 Невозможно выполнить действие, поскольку в Вашем сервере нет этого участника, либо этот участник покинул Ваш сервер.",
 
    }
 };
@@ -321,7 +325,7 @@ client.on('message', message => {
                                          name: "Ошибка",
                                          icon_url: client.user.avatarURL
                                        },
-			                   description: "Для того, чтобы забанить участника, напишите `dm~ban <упоминание> <причина>`",
+			                   description: "🚫 Для того, чтобы забанить участника, напишите `dm~ban <упоминание> <причина>`",
 
    }
 };
@@ -533,7 +537,7 @@ author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-		description: message.author + ": проигрывается **" + information + "** на " + streamOptions.bitrate / 1000 + " kbps",
+		description: '▶ ' + message.author + ": проигрывается **" + information + "** на " + streamOptions.bitrate / 1000 + " kbps",
  	   fields: [
     {
            name: "Автор",
@@ -598,7 +602,7 @@ author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-  description: "Прослушивание трека остановлено, т. к. DMITBot вышел из голосового канала.\n\nДля воспроизведения трека введите `dm~audio play <ссылка>`."
+  description: "⏹ Прослушивание трека остановлено, т. к. DMITBot вышел из голосового канала.\n\nДля воспроизведения трека введите `dm~audio play <ссылка>`."
 		}
 					};
     message.channel.send(audleave_embed);	
@@ -639,7 +643,7 @@ author: {
                 name: "Аудиоплеер",
                 icon_url: client.user.avatarURL
             },
-  description: "Прослушивание трека приостановлено.\nДля воспроизведения трека введите `dm~audio play"
+  description: "⏸ Прослушивание трека приостановлено.\nДля воспроизведения трека введите `dm~audio play"
 		}
 					};
     message.channel.send(audpause_embed);	
@@ -685,7 +689,7 @@ author: {
                 name: "Служба поддержки бота Dmit",
                 icon_url: client.user.avatarURL
             },
-  description: "dm~support bugreport <баг> - сообщить о баге\ndm~support note <отзыв> - отзыв"
+  description: "❓ dm~support bugreport <баг> - сообщить о баге\n  dm~support note <отзыв> - отзыв"
 		}
 					};
 						  client.channels.get("564022728143929370").send(t_log);
@@ -730,7 +734,7 @@ author: {
                 name: "Служба поддержки бота Dmit",
                 icon_url: client.user.avatarURL
             },
-  description: "Автор бота ответит через некоторое время, дождитесь ответа."
+  description: "❓ Автор бота ответит через некоторое время, дождитесь ответа."
 		}
 					};
     message.channel.send(supportbug_embed);
@@ -784,7 +788,7 @@ author: {
                 name: "Служба поддержки бота Dmit",
                 icon_url: client.user.avatarURL
             },
-  description: "Автор бота ответит через некоторое время, дождитесь ответа."
+  description: "❓ Автор бота ответит через некоторое время, дождитесь ответа."
 		}
 					};
 											  client.channels.get("564022728143929370").send(t_log);
@@ -844,23 +848,23 @@ author: {
   description: "Префикс: `dm~` `dm!` `d-` `d~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
-                    name: "Справка",
-                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
+                    name: "❓ Справка",
+                    value: "about - о боте DMIT Computers\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
                 },
                 {
-                    name: "Опции",
-                    value: "test - проверить состояние бота\r\nping - пинг"
+                    name: ":tools: Опции",
+                    value: "test - проверить состояние бота"
                 },
                 {
-                    name: "Модератор",
+                    name: ":hammer: Модератор",
                     value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\navatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
-                    name: "Развлечения",
+                    name: "👬 Развлечения",
                     value: "8ball <вопрос> - игра \"Шар судьбы\"\nemoji-ind - Индикатор эмоций\r\nsay - сказать что-нибудь от имени бота"
                 },
                 {
-                    name: "Аудиоплеер",
+                    name: "🎵 Аудиоплеер",
                     value: "audio play <ссылка> - воспроизведение трека\r\naudio stop - остановка трека и выход из голосового канала"
              }
             ],
@@ -881,23 +885,23 @@ author: {
   description: "Префикс: `dm~` `dm!` `d-` `d~`. Для выполнения пишите `<префикс><имя команды>`",
             fields: [
                 {
-                    name: "Справка",
-                    value: "about - о DmitBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
+                    name: "❓ Справка",
+                    value: "about - о DMITBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
                 },
                 {
-                    name: "Опции",
-                    value: "test - проверить состояние бота\r\nping - пинг"
+                    name: ":tools: Опции",
+                    value: "test - проверить состояние бота"
                 },
                 {
-                    name: "Модератор",
+                    name: ":hammer: Модератор",
                     value: "prune <кол-во> - удалить сообщения\r\nban - забанить кого-то\r\nkick - выгнать кого-то\r\navatar - мой аватар\r\nuser - о пользователе\r\nserver - о сервере"
                 },
                 {
-                    name: "Развлечения",
+                    name: "👬 Развлечения",
                     value: "8ball <вопрос> - игра \"Шар судьбы\"\nemoji-ind - Индикатор эмоций\r\nsay - сказать что-нибудь от имени бота"
                 },
                 {
-                    name: "Аудиоплеер",
+                    name: "🎵 Аудиоплеер",
                     value: "audio play <ссылка> - воспроизведение трека\r\naudio stop - остановка трека и выход из г. канала"
              }
             ],
@@ -960,10 +964,10 @@ author: {
             color: 0xff0000,
 
             author: {
-                name: "Ошибка",
+                name: "Внимание!",
                 icon_url: client.user.avatarURL
             },
-  description: "Пожалуйста, укажите после этой команды любое число от 2 до 100 для удаления."
+  description: "⚠ Пожалуйста, укажите после этой команды любое число от 2 до 100 для удаления."
 		}
 					};
 					
@@ -975,7 +979,7 @@ author: {
                 name: "Ошибка",
                 icon_url: client.user.avatarURL
             },
-  description: "Невозможно удалить сообщения, поскольку Вы или бот не имеет прав на управление сообщениями."
+  description: "🚫 Невозможно удалить сообщения, поскольку Вы или бот не имеет прав на управление сообщениями."
 		}
 					};
 
@@ -1066,7 +1070,7 @@ client.fetchUser(id)
                                          name: "Ошибка",
                                          icon_url: client.user.avatarURL
                                        },
-			                   description: "Невозможно выполнить действие, поскольку бот/Вы не имеете права администратора.",
+			                   description: "🚫 Невозможно выполнить действие, поскольку бот/Вы не имеете права администратора.",
 
    }
 };
@@ -1077,7 +1081,7 @@ client.fetchUser(id)
                                          name: "Ошибка",
                                          icon_url: client.user.avatarURL
                                        },
-			                   description: "Невозможно выполнить действие, поскольку в Вашем сервере нет этого участника, либо этот участник покинул Ваш сервер.",
+			                   description: "🚫 Невозможно выполнить действие, поскольку в Вашем сервере нет этого участника, либо этот участник покинул Ваш сервер.",
 
    }
 };
@@ -1088,7 +1092,7 @@ client.fetchUser(id)
                                          name: "Ошибка",
                                          icon_url: client.user.avatarURL
                                        },
-			                   description: "Для того, чтобы кикнуть участника, напишите `dm~kick <упоминание>`",
+			                   description: "🚫 Для того, чтобы кикнуть участника, напишите `dm~kick <упоминание>`",
 
    }
 };
@@ -1127,7 +1131,7 @@ author: {
                                        },
                             fields: [
                                        {
-                                           name: "Кикнут пользователем",
+                                           name: "🚪 Кикнут пользователем",
                                            value: message.author.tag
                                        },
       ]
@@ -1150,60 +1154,6 @@ author: {
   }});
 
 
-  client.on('message', message => {
-	  	  	   	  if(message.channel.type === 'dm') return;
-    if (message.content === prefix + 'ping' || message.content === prefix_a + "ping" || message.content === prefix_b + "ping" || message.content === prefix_c + "ping") {
-			  	  	var t_log = {
-   embed: {
-color: 0x2255ff,
-author: {
-     name: "Commands Log",
-},
-    description: message.author.tag + " typing `" + message.content + "` on " + message.guild.name + "/" + message.channel.name,
-	   fields: [
-      {
-           name: "Server ID",
-           value: message.guild.id
-    },
-       {
-           name: "Channel ID",
-           value: message.channel.id
-       },
-    {
-        name: "User ID",
-        value: message.author.id
-    },
-      ]
-		}}
-		  if(blockid === message.author.id) {
-
-	  message.channel.send(blockmsg_embed)
-  } else {
-	  	  						  client.channels.get("564022728143929370").send(t_log);
-	message.channel.sendMessage(':hourglass_flowing_sand:');
-		var timerId = setInterval(function() {
-  clearInterval(timerId);
-  	var ping_embed = {
-        embed: {
-            color: 0xff0000,
-
-            author: {
-                name: "Пинг",
-                icon_url: client.user.avatarURL
-            },
-  description: message.author + ", Ваш пинг составляет " + client.ping + " мсек с задержкой до 5 секунд.\n\nСделайте пожертвование, чтобы бот пинганул без задержек. Подробнее - пишите `dm~donate`"
-		}
-					};
-        message.channel.send(ping_embed)
-}, 5000);
-  }}})
-
-
-  client.on(`ready`, async () => {
-  client.user.setStatus('online')
-  .then(console.log)
-  .catch(console.error);
-  });
   
 // set message listener 
 client.on('message', message => {
@@ -1288,107 +1238,6 @@ author: {
 	}
 	}});
 
-client.on('message', message => {
-  if(message.author === client.user) return;
-  if(message.channel.type === 'dm') return;
-  if(message.content === prefix + 'news') {
-	  	  	  	var t_log = {
-   embed: {
-color: 0xaa88ff,
-author: {
-     name: "Commands Log",
-},
-    description: message.author.tag + " typing `" + message.content + "` on " + message.guild.name + "/" + message.channel.name,
-	   fields: [
-      {
-           name: "Server ID",
-           value: message.guild.id
-    },
-       {
-           name: "Channel ID",
-           value: message.channel.id
-       },
-    {
-        name: "User ID",
-        value: message.author.id
-    },
-      ]
-		}}
-	    if(blockid === message.author.id) {
-
-	  message.channel.send(blockmsg_embed)
-  } else {
-	  	  						  client.channels.get("564022728143929370").send(t_log);
-     var news_embed = {
-   embed: {
-color: 0xaa88ff,
-author: {
-     name: "Dmit News",
-     icon_url: client.user.avatarURL
-},
-   fields: [
-      {
-		   name: "Пока новостей нет.",
-           value: "Вы можете либо прогуляться по нашим командам, либо зайти на наш группу ВК: https://vk.com/dmitcompgroup, чтобы быть в курсе!"
-      },
-      ]
-   }
-};
-message.channel.send(news_embed);
-  }
-}});
-
-
-client.on('message', message => {
-  if(message.author === client.user) return;
-  if(message.channel.type === 'dm') return;
-  if(message.content === prefix + 'news 001') {
-	  	  	  	var t_log = {
-   embed: {
-color: 0xaa88ff,
-author: {
-     name: "Commands Log",
-},
-    description: message.author.tag + " typing `" + message.content + "` on " + message.guild.name + "/" + message.channel.name,
-	   fields: [
-      {
-           name: "Server ID",
-           value: message.guild.id
-    },
-       {
-           name: "Channel ID",
-           value: message.channel.id
-       },
-    {
-        name: "User ID",
-        value: message.author.id
-    },
-      ]
-		}}
-	    if(blockid === message.author.id) {
-
-	  message.channel.send(blockmsg_embed)
-  } else {
-	  	  	  						  client.channels.get("564022728143929370").send(t_log);
-     var news_001_embed = {
-   embed: {
-color: 0xaa88ff,
-author: {
-     name: "Новости Dmit",
-     icon_url: client.user.avatarURL
-},
-   fields: [
-      {
-           name: "Пока новостей нет",
-           value: "Вы можете либо прогуляться по нашим командам, либо зайти на наш Twitter: https://twitter.com/dmitplus, чтобы быть в курсе!"
-
-    },
-      ]
-   }
-};
-message.channel.send(news_001_embed);
-  }
-}});
 
 client.on('message', message => {
 	if(message.author === client.user) return;
@@ -1454,7 +1303,7 @@ author: {
      name: "Ошибка",
      icon_url: client.user.avatarURL,
 },
-description: "Команда будет доступна только, если Вы сделаете пожертвование.\n\nПодробнее: `dm~donate` + ввод."
+description: "🚫 Команда будет доступна только, если Вы сделаете пожертвование.\n\nПодробнее: `dm~donate` + ввод."
    }
 };
 message.channel.send(ads_err_embed);
@@ -1504,7 +1353,7 @@ author: {
                     },
             fields: [
                        {
-                         name: "Ответ",
+                         name: "💬 Ответ",
                          value: answers[rand]
                        },
                     ]
@@ -1577,23 +1426,23 @@ author: {
                  value: message.guild.id
             },
             {
-                 name: "Владелец",
+                 name: "👑 Владелец",
                  value: message.guild.owner.user.tag
             },
             {
-                 name: "Кол-во элементов сервера",
+                 name: "🏡 Кол-во элементов сервера",
                  value: message.guild.channels.size + " каналов | " + message.guild.roles.size + " ролей | " + message.guild.memberCount + " участников | " + message.guild.presences.size + " онлайн | " + message.guild.emojis.size + " эмоджи"
             },
             {
-                 name: "AFK-канал",
+                 name: "🔕 AFK-канал",
                  value: afkCh
             },
             {
-                   name: "Регион/Страна",
+                   name: "🏙 Регион/Страна",
                    value: message.guild.region
             },
             {
-                 name: "Степень модерации",
+                 name: "🛠 Степень модерации",
                  value: verifLvl[message.guild.verificationLevel]
             },
            ],
@@ -1690,19 +1539,19 @@ author: {
                  value: argsUser.id
             },
             {
-                 name: "Статус",
+                 name: "📶 Статус",
                  value: game
 		    },
 			{
-                 name: "Дата регистрации",
+                 name: "📫 Дата регистрации",
                  value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(~" + diff1 + " мес. назад\)"
             },
             {
-                 name: "Дата входа в сервер",
+                 name: "🔑 Дата входа в сервер",
                  value: strftime('%d.%m.%Y в %H:%M', new Date(message.guild.member(argsUser).joinedTimestamp)) + " \(~" + diff2 + " мес. назад\)"
             },
             {
-                 name: "Роли",
+                 name: "🗒 Роли",
                  value: message.guild.member(argsUser).roles.filter(r => r.id != message.guild.id).map(role => role.name).join(', ') || "Отсутствуют"
             },
            ]
@@ -1730,19 +1579,19 @@ author: {
                  value: argsUser.id
             },
             {
-                 name: "Статус",
+                 name: "📶 Статус",
                  value: game
             },
             {
-                 name: "Дата регистрации",
+                 name: "📫 Дата регистрации",
                  value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(" + diff1 + " дн. назад\)"
             },
             {
-                 name: "Дата входа в сервер",
+                 name: "🔑 Дата входа в сервер",
                  value: strftime('%d.%m.%Y в %H:%M', new Date(message.guild.member(argsUser).joinedTimestamp)) + " \(" + diff2 + " дн. назад\)"
             },
             {
-                 name: "Роли",
+                 name: "🗒 Роли",
                  value: message.guild.member(argsUser).roles.filter(r => r.id != message.guild.id).map(role => role.name).join(', ') || "Отсутствуют"
             },
            ]
@@ -1811,7 +1660,7 @@ author: {
     const sayMessage = args.join(" ");
     message.delete().catch(console.log("\n\nError! I can not manage messages.\n\nReason\n" + message.author.tag + ": " + message.content)); 
     // And we get the bot to say the thing: 
-    message.channel.send(sayMessage + "\n*`Отправлено пользователем " + message.author.tag + ". Мы прекрасно все видим, кто прикрывается чужой спиной!`*");
+    message.channel.send(sayMessage + "\n\n*Отправлено пользователем " + message.author.tag + ".*");
                                   }
 });
 
@@ -1864,7 +1713,7 @@ author: {
                     },
             fields: [
                        {
-                         name: "Эмоция",
+                         name: "🔣 Эмоция",
                          value: emoji[rand]
                        },
                     ]
@@ -1920,7 +1769,7 @@ author: {
      name: "Пожертвование",
      icon_url: client.user.avatarURL,
 },
-description: "За донат вы получите:\n1. Команду `dm~ads +` для рекламы Вашего сервера!\n2. `dm~ping` без задержки\n\nhttps://donationalerts.com/r/dmitryevpc\n\nМин. - 15 RUB \(р.\)/6 UAH \(укр. гр.\)/0.15 USD \(долл. США\)"
+description: "💵 За донат вы получите:\n1. Команду `dm~ads +` для рекламы Вашего сервера!\n2. `dm~ping` без задержки\n\nhttps://donationalerts.com/r/dmitryevpc\n\nМин. - 15 RUB \(р.\)/6 UAH \(укр. гр.\)/0.15 USD \(долл. США\)"
    }
 };
       message.channel.sendMessage(donate_embed)
