@@ -30,7 +30,7 @@ client.on('ready', () => {
 	process.stdout.write('\x1Bc'); 
 	  let randoman = client.guilds.random()
     console.log("\n ██████    ████   ████   ██   ████████\n      ██   ██ ██ ██ ██           ██\n       ██  ██ ██ ██ ██   ██      ██\n       ██  ██  ███  ██   ██      ██\n      ██   ██       ██   ██      ██\n ██████    ██       ██   ██      ██\n\nDMITBot " + botconfig.version + " \(" + botconfig.date + "\)\n\(C\)opyright 2019 DMIT Development. All rights reserved.\n\nThis script started successfully.")
-	console.log("\nPing: " + client.ping + " ms | Memory usage: " + Math.round(process.memoryUsage().heapUsed / 1024) + " kB\nServers: " + client.guilds.size + " \(" + randoman.name + "\) | Users: " + client.users.size)
+	console.log("\nPing: " + client.ping.toFixed(2) + " ms | Memory usage: " + Math.round(process.memoryUsage().heapUsed / 1024) + " kB\nServers: " + client.guilds.size + " \(" + randoman.name + "\) | Users: " + client.users.size)
     }, 2000);
 	if(client.ping > 2000) {
 		  client.user.setPresence({status: 'dnd'})
@@ -183,7 +183,7 @@ author: {
     },
        {
            name: "🏓 Время отправки",
-           value: client.ping + " мсек"
+           value: client.ping.toFixed(2) + " мсек"
        },
        {
            name: "⏱ Время работы",
@@ -329,9 +329,18 @@ client.on('message', message => {
 
    }
 };
-    if (user1 && message.member.hasPermission('ADMINISTRATOR')) {
-      if (member) {
-		  		var bansucc_embed = {
+		var banerr4_embed = {
+                            embed: {
+                               color: 0xff0000,
+                               author: {
+                                         name: "Ошибка",
+                                         icon_url: client.user.avatarURL
+                                       },
+			                   description: "🚫 Произошла неизвестная ошибка. Повторите еще раз.",
+
+   }
+};
+					var bansucc_embed = {
                             embed: {
                                color: 0xff0000,
                                author: {
@@ -350,9 +359,13 @@ client.on('message', message => {
       ]
    }
 };
+    if (user1) {
+		if(message.member.hasPermission('ADMINISTRATOR')) {		  		
+      if (member) {
         member.ban({
           reason: message.author.tag + ': ' + args,
         }).then(() => {
+			message.channel.send(bansucc_embed);
 		  		var ban_log = {
    embed: {
 color: 0xff8800,
@@ -377,17 +390,18 @@ author: {
       ]
    }
 };
+
 	  client.channels.get("564022728143929370").send(ban_log);
-          message.channel.sendMessage(bansucc_embed);
-        }).catch(err => {
-          message.channel.sendMessage(banerr1_embed);
+		})
+        .catch(err => {
+          message.channel.sendMessage(banerr4_embed);
           console.error(err);
-        });
-      } else {
-        message.channel.sendMessage(banerr2_embed);
+        })
+      } else { message.channel.sendMessage(banerr4_embed)  } } else {
+        message.channel.sendMessage(banerr3_embed);
       }
     } else {
-      message.channel.sendMessage(banerr3_embed);
+      message.channel.sendMessage(banerr1_embed);
     }
   }}
 });
@@ -849,7 +863,7 @@ author: {
             fields: [
                 {
                     name: "❓ Справка",
-                    value: "about - о боте DMIT Computers\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
+                    value: "about - о боте DMIT Computers\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на наши ресурсы"
                 },
                 {
                     name: ":tools: Опции",
@@ -886,7 +900,7 @@ author: {
             fields: [
                 {
                     name: "❓ Справка",
-                    value: "about - о DMITBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на автора"
+                    value: "about - о DMITBot\r\nsupport - служба поддержки бота\r\ndonate - помочь проекту\r\nlinks - ссылки на ресурсы"
                 },
                 {
                     name: ":tools: Опции",
@@ -1096,7 +1110,19 @@ client.fetchUser(id)
 
    }
 };
-      if (user1 && message.member.hasPermission('ADMINISTRATOR')) {
+		var kickerr4_embed = {
+                            embed: {
+                               color: 0xff0000,
+                               author: {
+                                         name: "Ошибка",
+                                         icon_url: client.user.avatarURL
+                                       },
+			                   description: "🚫 Произошла неизвестная ошибка. Повторите еще раз.",
+
+   }
+};
+      if (user1) {
+		  if(message.member.hasPermission('ADMINISTRATOR')) {
         if (member) {
 				  		  		var kick_log = {
    embed: {
@@ -1141,21 +1167,18 @@ author: {
           member.kick('Optional reason that will display in the audit logs').then(() => {
             message.channel.send(kicksucc_embed);
           }).catch(err => {
-            message.channel.sendMessage(kickerr1_embed);
+            message.channel.sendMessage(kickerr4_embed);
             console.error(err);
           });
         } else {
           message.channel.sendMessage(kickerr2_embed);
-        }
+		  }} else { message.channel.send(kickerr1_embed)}
       } else {
-        message.channel.sendMessage(kickerr3_embed);
+        message.channel.send(kickerr3_embed);
       }
     }
   }});
 
-
-  
-// set message listener 
 client.on('message', message => {
     if(message.author === client.user) return;
 	  	   	  if(message.channel.type === 'dm') return;
@@ -1207,7 +1230,7 @@ author: {
    embed: {
 color: 0xaa88ff,
 author: {
-     name: "Ссылки на автора",
+     name: "Ссылки на наши ресурсы",
      icon_url: client.user.avatarURL
 },
    fields: [
@@ -1227,6 +1250,10 @@ author: {
 		   name: "Telegram",
            value: "https://t.me/dmitcomp"
       },
+	  {
+		   name: "Исходный код бота",
+		   value: "https://github.com/dmitryevdev/dmitbot"
+	  },
 	  {
 		   name: "Приглашение бота",
 		   value: "https://discordapp.com/api/oauth2/authorize?client_id=507540368443834374&permissions=8&scope=bot"
@@ -1494,7 +1521,7 @@ author: {
 	  message.channel.send(blockmsg_embed)
   } else {
       let args = message.content.split(" ").slice(1);
-	  let member = message.guild.member(message.mentions.users.first())
+	  let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
 	  let argsUser = message.guild.member.user || message.author
 	  if(message.guild.member(args[0])) {
 	  argsUser = message.guild.member(args[0]).user
@@ -1502,7 +1529,7 @@ author: {
 	  if (member) {
 			  argsUser = member.user
 	  }
-	  else {argsUser = message.author} }
+	  else {argsUser = message.author} }	
 	  let statuses = {
 		  online: "Онлайн",
 		  idle: "Не активен",
@@ -1517,17 +1544,17 @@ author: {
       else if (argsUser.presence.game.type == 3) game = `Смотрит **${argsUser.presence.game.name}**`
       let day = 1000 * 60 * 60 * 24
 	  let month = 30
-	  let date1 = new Date(message.createdTimestamp)
+	  let date1 = new Date()
 	  let date2 = new Date(argsUser.createdTimestamp)
 	  let date3 = new Date(message.guild.member(argsUser).joinedTimestamp )
 	  if (Math.round(Math.abs((date1.getTime() - date3.getTime()) / day)) > 30 && Math.round(Math.abs((date1.getTime() - date2.getTime()) / day)) > 30) {
-		  let diff1 = Math.round(Math.abs((date1.getTime() - date2.getTime()) / day / month))
-		  		  let diff2 = Math.round(Math.abs((date1.getTime() - date3.getTime()) / day / month))
+		  let diff1 = Math.abs((date1.getTime() - date2.getTime()) / day / month)
+		  let diff2 = Math.abs((date1.getTime() - date3.getTime()) / day / month)
 		        var ui_info = {
     embed: {
         color: 0x8800ff,
         author: {
-              name: "О пользователе \"" + argsUser.tag + "\"",
+              name: argsUser.bot ? "[Bot] О пользователе \"" + argsUser.tag + "\"" : "О пользователе \"" + argsUser.tag + "\" " ,
               icon_url: client.user.avatarURL
                    },
 			  thumbnail: {
@@ -1544,11 +1571,11 @@ author: {
 		    },
 			{
                  name: "📫 Дата регистрации",
-                 value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(~" + diff1 + " мес. назад\)"
+                 value: strftime('%d.%m.%Y в %H:%M', new Date(argsUser.createdTimestamp)) + " \(~" + diff1.toFixed(1) + " мес. назад\)"
             },
             {
                  name: "🔑 Дата входа в сервер",
-                 value: strftime('%d.%m.%Y в %H:%M', new Date(message.guild.member(argsUser).joinedTimestamp)) + " \(~" + diff2 + " мес. назад\)"
+                 value: strftime('%d.%m.%Y в %H:%M', new Date(message.guild.member(argsUser).joinedTimestamp)) + " \(~" + diff2.toFixed(1) + " мес. назад\)"
             },
             {
                  name: "🗒 Роли",
@@ -1567,7 +1594,7 @@ author: {
     embed: {
         color: 0x8800ff,
         author: {
-              name: "О пользователе \"" + argsUser.username + "\"",
+              name: argsUser.bot ? "[Bot] О пользователе \"" + argsUser.tag + "\"" : "О пользователе \"" + argsUser.tag + "\" ",
               icon_url: client.user.avatarURL
                    },
 			  thumbnail: {
@@ -1624,7 +1651,9 @@ client.on('message', message => {
 
 client.on('message', message => {
   if(message.author === client.user) return;
+  try {
   if(message.member.hasPermission('ADMINISTRATOR')) return;
+  } catch(e) { };
   if(message.content.startsWith("@everyone")) {
 	  message.channel.send(message.author + ", не пинай меня, задрал.")
 }});
