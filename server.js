@@ -748,15 +748,15 @@ let profile = require("./JSON/profile.json");
 	        author: {
                              name: "Commands Log",
 			},
-   	        description: "Member " + message.content + "` on " + message.guild.name + "/" + message.channel.name,
+   	        description: "Member " + memberActions.user.tag + " issued a warning from " + message.author.tag + " for a reason " + args + " (" + profile[member1.id].warns + " / 3)",
 	   fields: [
       {
            name: "Server ID",
            value: message.guild.id
     },
        {
-           name: "Channel ID",
-           value: message.channel.id
+           name: "Member ID",
+           value: memberActions.user.id
        },
     {
         name: "User ID",
@@ -764,6 +764,7 @@ let profile = require("./JSON/profile.json");
     },
       ]
 		}}
+		client.channels.get("564022728143929370").send(t_log);
 } else {message.channel.send(warnerr1_embed);}
 } else {message.channel.send(warnerr2_embed);}
 } else {message.channel.send(warnerr1_embed);}
